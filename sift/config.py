@@ -100,4 +100,35 @@ def load_criteria(path: Path | str = ROOT / "criteria.yaml") -> dict[str, Any]:
     return data
 
 
+def output_dir() -> Path:
+    """Where exports go, so the user can actually find them.
+
+    Found in use twice: the app runs inside WSL, so it wrote results to a path
+    like /home/hp/sift/data/ that is invisible from Windows Explorer. The user
+    clicked Export, got a success message, and could not find the file. On WSL
+    the output now goes to the Windows Documents folder instead.
+    """
+    try:
+        if "microsoft" in Path("/proc/version").read_text().lower():
+            for base in Path("/mnt/c/Users").glob("*"):
+                docs = base / "Documents"
+                if docs.is_dir():
+                    out = docs / "CV Screening"
+                    out.mkdir(parents=True, exist_ok=True)
+                    return out
+    except Exception:
+        pass
+    out = ROOT / "data"
+    out.mkdir(parents=True, exist_ok=True)
+    return out
+
+
+def windows_path(p: Path) -> str:
+    """Show a WSL path the way the user will see it in Explorer."""
+    s = str(p)
+    if s.startswith("/mnt/") and len(s) > 6:
+        return s[5].upper() + ":" + s[6:].replace("/", "\\")
+    return s
+
+
 SETTINGS = load_settings()

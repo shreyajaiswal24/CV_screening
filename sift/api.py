@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from sift import db
-from sift.config import ROOT, SETTINGS, Secrets, load_criteria
+from sift.config import ROOT, SETTINGS, Secrets, load_criteria, output_dir, windows_path
 from sift.graph import process_one
 from sift.observability import enabled as tracing_enabled
 
@@ -247,10 +247,10 @@ def export(payload: ExportPayload):
     if not rows:
         raise HTTPException(400, "Nothing to export.")
     if not sheet:
-        out = ROOT / "data" / "results.csv"
+        out = output_dir() / "shortlist.csv"
         from sift.integrations.gsheets import write_csv
         _, written, skipped = write_csv(rows, out)
-        return {"ok": True, "destination": "csv", "path": str(out),
+        return {"ok": True, "destination": "csv", "path": windows_path(out),
                 "rows": written, "skipped": skipped}
     from sift.integrations.gsheets import append_rows
     written, skipped = append_rows(sheet, rows)

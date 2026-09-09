@@ -1,0 +1,41 @@
+Arjun Nair
++91 90000 00000 | arjun.nair@example.com
+Education
+ABES Engineering College Ghaziabad, Uttar Pradesh
+B.Tech in Computer Engineering (8.2 CGPA) 2022 – 2026
+St. Xavier’s School (CBSE) Ballia, Uttar Pradesh
+Class 12 2022
+Technical Skills
+Languages: Python, C/C++, HTML/CSS, JavaScript
+F rameworks: React.js, Node.js, Material-UI
+Developer T ools: Git, Google Cloud Platform
+Links
+LinkedIn: https://example.com/portfolio
+GitHub: https://example.com/portfolio
+LeetCode: https://example.com/portfolio
+GFG: https://example.com/portfolio
+Projects
+Hotel Reservation (Link) | React.js
+• Built a responsive hotel booking UI with dynamic availability and interactive room selection.
+• Designed a user-friendly, scalable, and responsive interface to improve booking efficiency.
+Invoice Generator (Link) | React.js, Material-UI
+• Developed an invoice generator with CRUD operations and PDF generation .
+• Integrated state management with React Context/Redux for seamless data handling.
+Ecommerce Sneakers W ebsite (Link) | HTML, CSS, JavaScript
+• Created a responsive e-commerce platform with an interactive UI, checkout page, and shopping cart .
+• Optimized design for seamless cross-device shopping experience.
+ACHIEVEMENTS
+• Qualified Smart India Hackathon (Internals)
+• Solved over 150+ questions on LeetCode
+• Earned 50-day and 100-day streak badges on LeetCode
+• Completed Arcade December Challenge ( Google Cloud Skills Boost ) (2023)
+• Successfully participated in Google Cloud Study Jam November Challenge (2024)
+VOLUNTEER
+• CodeChef, T echnical T eam
+- Organized coding competitions to promote problem-solving skills.
+• GeeksforGeeks (GFG), T echnical T eam (F rontend)
+- Developed and optimized front-end features using React.js, HTML, CSS, and JavaScript.
+INTERPERSONAL SKILLS
+• Quick learner
+• Leadership abilities
+• Strong communication skills

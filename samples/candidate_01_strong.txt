@@ -1,0 +1,26 @@
+ALEX MORGAN
+alex.morgan@example.com | +44 7700 900123 | Berlin, Germany
+github.com/alexmorgan-dev
+
+SUMMARY
+Frontend engineer focused on large-scale React applications.
+
+EXPERIENCE
+
+Senior Frontend Engineer — Nova Payments (Berlin)
+March 2021 – present
+  - Led the rebuild of the checkout flow in React and TypeScript, now serving
+    40,000 daily active users.
+  - Owned the release process end to end, from CI to production rollout.
+  - Employee number 6; company was Series A at the time of joining.
+
+Frontend Developer — Brightline Ltd (London)
+June 2018 – February 2021
+  - Built and shipped the customer dashboard used by 12,000 businesses.
+  - Migrated the legacy jQuery front end to React.
+
+EDUCATION
+BSc Computer Science, University of Manchester, 2014 – 2017
+
+SKILLS
+React, TypeScript, GraphQL, Node.js, Jest, Playwright

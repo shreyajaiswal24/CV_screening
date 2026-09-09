@@ -1,0 +1,12 @@
+INVOICE #2026-0431
+Date: 3 September 2026
+
+Bill to: Nova Payments GmbH
+Description: Consulting services, August 2026
+Hours: 42
+Rate: EUR 95/hour
+Subtotal: EUR 3,990.00
+VAT (19%): EUR 758.10
+Total due: EUR 4,748.10
+
+Payment terms: 30 days. Bank details on file.

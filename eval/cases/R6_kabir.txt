@@ -1,0 +1,46 @@
+Kabir Bose
+Ghaziabad, Uttar Pradesh
+/ne+91 90000 00000 kabir.bose@example.com LinkedIn /gtbGitHub
+ LeetCode
+ GFG
+EDUCATION
+ABES Engineering College 2022 – 2026
+B.Tech - Computer Engineering - CGPA: 8.2 Ghaziabad, Uttar Pradesh
+St. Xavier’s School (CBSE) Completed in 2022
+Class 12 Ballia, Uttar Pradesh
+TECHNICAL SKILLS
+• Languages: C/C++, Python, JavaScript
+• T echnologies/F rameworks:Generative AI, Langchain,OpenAI, FlaskApi, Groq, React.js, Javascript,HTML5, CSS3,
+Bootstrap
+• Developer T ools: VS Code, Git, GitHub, Postman
+EXPERIENCE
+AI Revo Labs Apr 2025 – Jul 2025
+AI Developer Intern (Remote)
+• Worked on an AI-powered Interview Agent using LangChain, Gemini CLI, and Claude.
+• Built RAG pipelines and integrated LLMs for dynamic question answering.
+• Created RESTful APIs with Flask to manage backend inference workflows.
+• Implemented use cases such as resume screening and intelligent question generation.
+Know Your College (KYC) Nov 2024 – Feb 2025
+Frontend Developer Intern (Remote)
+• Developed a responsive website using HTML, CSS, JavaScript, and React.js.
+• Designed and implemented key pages such as Home, About, College Listings, and Contact.
+• Enhanced UI/UX design, ensured cross-browser compatibility, and optimized responsiveness.
+PROJECTS
+AI Chatbot for Developer Documentation Assistance | Python, ChromaDB, n8n, Ngrok, Streamlit June 2025
+• Developed an AI-powered Slack chatbot using F astAPI, LlamaIndex, and ChromaDB to answer developer
+documentation queries with context-aware responses.
+• Automated answering of developer questions by retrieving accurate information from embedded technical docs.
+• Delivered instant responses with relevant code snippets and explanations directly within Slack.
+• Improved onboarding by helping new developers explore internal tools through conversational AI.
+AI Agent for Data Cleaning and Preprocessing | Python, FastAPI, LangGraph, OpenAI April 2025
+• Built backend pipelines using LangGraph and F astAPIfor AI-driven data cleaning workflows.
+• Designed a Streamlit UI and integrated it with PostgreSQL for interactive data handling.
+• Implemented AI logic to detect and fix missing values, outliers, and formatting issues for ETL and ML.
+Real Estate AI Agent | AI Agents (n8n, OpenAI, ChromaDB) Dec 2024
+• Developed an AI agent to answer real estate queries using n8n, OpenAI, and ChromaDB for RAG.
+• Automated property search, location-based filtering, and user-specific recommendations via conversational interface.
+• Integrated workflows for document retrieval, RAG-based querying, and response delivery through chat platforms.
+ACHIEVEMENTS
+• Solved 200+ coding questions on LeetCode and GeeksforGeeks.
+• Earned the 100-Day Streak Badge on LeetCode.
+• 4-Star Coder on HackerRank in Python and C++.

@@ -1,0 +1,217 @@
+{
+  "E1_open_ended_dates": {
+    "file": "E1_open_ended_dates.txt",
+    "type": "edge",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "ADVANCE",
+    "expected_status": {
+      "python_proficiency": "MET",
+      "llm_experience": "MET",
+      "production_deployment": "MET",
+      "cloud_or_containers": "MET",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": []
+  },
+  "E2_overlapping_roles": {
+    "file": "E2_overlapping_roles.txt",
+    "type": "edge",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "MET",
+      "llm_experience": "MET",
+      "production_deployment": "MET",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  },
+  "E3_keyword_only_llm": {
+    "file": "E3_keyword_only_llm.txt",
+    "type": "edge",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  },
+  "F1_scanned": {
+    "file": "F1_scanned.txt",
+    "type": "failure",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": "NO_TEXT_FOUND",
+    "expected_verdict": null,
+    "expected_status": {
+      "python_proficiency": null,
+      "llm_experience": null,
+      "production_deployment": null,
+      "cloud_or_containers": null,
+      "timezone_ist": null
+    },
+    "expected_flags": []
+  },
+  "F2_not_a_cv": {
+    "file": "F2_not_a_cv.txt",
+    "type": "failure",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": "NOT_A_CV",
+    "expected_verdict": null,
+    "expected_status": {
+      "python_proficiency": null,
+      "llm_experience": null,
+      "production_deployment": null,
+      "cloud_or_containers": null,
+      "timezone_ist": null
+    },
+    "expected_flags": []
+  },
+  "F3_injection": {
+    "file": "F3_injection.txt",
+    "type": "failure",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "NOT_STATED"
+    },
+    "expected_flags": [
+      "DUPLICATE",
+      "MISSING_FIELD",
+      "POSSIBLE_INJECTION"
+    ]
+  },
+  "R1_priya": {
+    "file": "R1_priya.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "MET",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD",
+      "UNVERIFIED_EVIDENCE",
+      "WEAK_EVIDENCE"
+    ]
+  },
+  "R2_arjun": {
+    "file": "R2_arjun.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  },
+  "R3_meera": {
+    "file": "R3_meera.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  },
+  "R4_rohan": {
+    "file": "R4_rohan.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "MET",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD",
+      "WEAK_EVIDENCE"
+    ]
+  },
+  "R5_anaya": {
+    "file": "R5_anaya.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "NOT_STATED",
+      "llm_experience": "NOT_STATED",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  },
+  "R6_kabir": {
+    "file": "R6_kabir.txt",
+    "type": "representative",
+    "verified_by_human": false,
+    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "expected_error_code": null,
+    "expected_verdict": "REVIEW",
+    "expected_status": {
+      "python_proficiency": "MET",
+      "llm_experience": "MET",
+      "production_deployment": "NOT_STATED",
+      "cloud_or_containers": "NOT_STATED",
+      "timezone_ist": "MET"
+    },
+    "expected_flags": [
+      "MISSING_FIELD"
+    ]
+  }
+}

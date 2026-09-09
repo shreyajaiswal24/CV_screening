@@ -1,0 +1,38 @@
+BASELINE ARM B — plain ChatGPT / plain LLM, no system around it.
+
+This is the honest competitor. It is deliberately a GOOD prompt, not a strawman:
+it asks for evidence and for gaps to be flagged. The point of the comparison is
+not that a chat model writes worse assessments — it is that nothing checks them.
+
+Paste this, then paste the CV text underneath it, one CV at a time.
+
+--------------------------------------------------------------------------
+I am screening candidates for an AI Engineer role. My criteria are:
+
+1. Proficient in Python for building real applications, not only coursework   [REQUIRED]
+2. Hands-on experience building with large language models — RAG, agents,
+   prompt engineering, embeddings, or fine-tuning                             [REQUIRED]
+3. Has deployed an application to production where real users used it
+4. Experience with a cloud platform (AWS, GCP, Azure) or containers
+5. Based in India, or able to work Indian Standard Time hours
+
+For each criterion tell me whether the candidate meets it, quote the line from
+the CV that proves it, and say if the CV does not mention it. Then give me an
+overall verdict and what I should do next.
+
+Here is the CV:
+[PASTE CV TEXT]
+--------------------------------------------------------------------------
+
+WHAT TO RECORD FOR EACH CV
+  - wall-clock time from paste to usable answer (include your own re-reading)
+  - for each of the 5 criteria: was the status right? (check against the CV)
+  - QUOTE CHECK: search the CV for each quote it gave. Is it there, verbatim?
+  - GAP CHECK: for anything the CV genuinely does not state, did it say so,
+    or did it infer an answer?
+  - could you paste 12 of these side by side and compare them?
+  - is there any record of this decision a week from now?
+
+The last two are not about accuracy. They are the difference between a chat
+answer and a system, and they are where the case for building anything at all
+actually lives.

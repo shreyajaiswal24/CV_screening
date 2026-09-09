@@ -1,0 +1,17 @@
+DEVANSH RAO
+devansh.rao@example.com | +91 90000 00000 | Pune, India
+
+EXPERIENCE
+
+Machine Learning Engineer — Northwind Labs
+March 2019 – Present
+  - Built and deployed a document question-answering system in Python using
+    retrieval-augmented generation over an internal knowledge base.
+  - The system is used daily by 300 support staff in production.
+  - Containerised the service with Docker and deployed it on AWS ECS.
+
+EDUCATION
+B.Tech Computer Science, 2015 – 2019
+
+SKILLS
+Python, PyTorch, LangChain, FAISS, Docker, AWS

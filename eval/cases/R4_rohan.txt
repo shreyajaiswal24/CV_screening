@@ -1,0 +1,39 @@
+Rohan Iyer
+♂phone-alt+91 90000 00000 | /envel⌢rohan.iyer@example.com | /linkedinLinkedin | /githubGithub | /codeLeetCode
+Ghaziabad, Uttar Pradesh
+Education
+KIET Group of Institutions Ghaziabad, Uttar Pradesh
+B.Tech Computer Science (CGPA: 9.14) 2024 – 2028
+New Central Public Academy (CBSE) Ballia, Uttar Pradesh
+Class 12 (PCM) — Percentage: 85% Completed in 2024
+Technical Skills
+Languages: C/C++, Python, Java, Kotlin, Dart, Agentic AI (Learning)
+Frameworks: Flutter, Jetpack Compose, Spring Boot, Android SDK, Provider
+Developer Tools: Android Studio, VS Code, Firebase, Git, GitHub, Docker, PostgreSQL
+Projects
+Jan Samadhan (SIH 2025) | Kotlin, Jetpack, Government Project Project Link
+– Developed for the Government of Jharkhand to streamline public grievance redressal for municipal issues
+– Implemented Automated Routing to instantly direct complaints to the relevant municipal department based on
+category
+– Integrated Real-Time Status Tracking and unique reference IDs to ensure transparency
+AI Organization Butler | Flutter, Dart, Roboflow ML, Provider Project Link
+– Built an AI-powered room organization app using Flutter that helps users declutter and organize their living spaces
+– Integrated Roboflow ML API for real-time object detection to identify clutter items like clothes, cables, and books
+– Implemented messiness scoring algorithm that analyzes room state and generates personalized cleanup strategies
+– Developed gamification features including streak tracking, achievements, and task management with Provider state
+management
+FindMyStuff | Jetpack Compose, Firebase, Cloudinary, Kotlin Project Link
+– Engineered a community-driven recovery app using Jetpack Compose for a modern, reactive user interface.
+– Integrated Firebase Authentication for secure onboarding and Cloud Firestore for real-time item listings.
+– Implemented Cloudinary API for robust image management, including optimized storage and transformation of
+item photos.
+Achievements
+• Android Coordinator at Technocrates : Leading the Android wing of the largest technical club at KIET Group of
+Institutions.
+• Smart India Hackathon (SIH) 2025 : Selected among the Top 45 teams in college out of 500+ competing teams.
+• Competitive Programming: Solved 150+ questions on LeetCode and GeeksforGeeks (GFG).
+Certifications
+• Red Hat Certified System Administrator (RHCSA)
+• Oracle Database Programming with SQL
+• Spring Boot Certification (Infosys)
+• Science Quiz Competition : 3rd Position (Inter-College)

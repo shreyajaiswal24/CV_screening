@@ -1,0 +1,24 @@
+ISHAAN GUPTA
+ishaan.gupta@example.com | Bengaluru, India
+
+EXPERIENCE
+
+Contract AI Engineer — Bluewave Tech
+January 2019 – December 2024
+  - Built LLM-powered agents in Python for customer triage.
+  - Shipped to production for a client with 20,000 monthly users.
+
+Part-time ML Consultant — Corvus Systems
+June 2021 – December 2023
+  - Advised on embedding pipelines and vector search.
+  - Delivered a prototype recommendation engine.
+
+Freelance Developer — self-employed
+March 2020 – August 2022
+  - Various Python automation projects.
+
+EDUCATION
+MSc Artificial Intelligence, 2018
+
+SKILLS
+Python, LangChain, OpenAI API, Pinecone, GCP

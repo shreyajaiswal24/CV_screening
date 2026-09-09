@@ -1,0 +1,47 @@
+Meera Kapoor
+Ghaziabad, Uttar Pradesh
+♂phone+91 90000 00000 | /envel⌢meera.kapoor@example.com | /linkedinLinkedin | /githubGithub | /gl⌢bePortfolio
+Education
+DR. APJ ABDUL KALAM TECHNICAL UNIVERSITY Nov 2022 – Jul 2026
+B. Tech in Computer Science and Engineering Ghaziabad, Uttar Pradesh
+Work Experience
+House of MarkTech Dec 2024 – Feb 2025
+Full Stack Developer | Internship Remote
+• Developed and deployed 20+ mobile-first components in React and MUI, tested on 8+ device sizes.
+• Participated in 20+ sprint stand-ups and reviews, communicating updates effectively across the team.
+• Led development of RBAC-enabled admin panel, managing 50+ user/product operations securely.
+• Integrated 25+ APIs with JWT auth and error handling, achieving 100% success rate in QA tests.
+Simplifii Labs Private Limited Aug 2023 – Apr 2024
+Frontend Developer | Internship Remote
+• Created 15+ responsive and interactive web pages using HTML, CSS, and JavaScript.
+• Implemented reusable UI components with React.js and MUI, boosting development speed by 30%.
+• Reduced initial load time by 1.5 s by reducing image size and serving fonts through CDN.
+• Collaborated with 5 frontend devs to build 15+ responsive pages using React and core web technologies.
+Projects
+Styleora | REACT, EXPRESS JS, MONGO DB, TAIL WIND CSS Link
+• Designed an e-commerce platform with 100% responsive User Interface across 10+ device sizes.
+• Took ownership of performance optimizations, improving page load and UX on 10+ device sizes.
+• Maintained and secured 50+ API endpoints with proper error handling and Bcrypt password hashing.
+• Orchestrated frontend-backend data sync via Axios across all critical routes (100% API call success).
+BeatDrop | REACT, EXPRESS JS, MONGO DB, TAIL WIND CSS, HOWLER Link
+• Engineered MERN-based music web app with real-time streaming supporting 200+ test song uploads.
+• Used Cloudinary for efficient media storage, enabling uploads in under 3 seconds and reducing server load.
+• Unified state across 50+ components using Context API, eliminating prop drilling and simplified data flow.
+• Coded and Deployed a 100% responsive UI with Tailwind CSS, improving cross-device UI / UX.
+Youtube Clone | REACT JS, MUI Link
+• Built a YouTube clone using React and Material UI, ensuring consistency across 3+ devices.
+• Utilized live YouTube Data API to fetch videos, channels, and load 500+ products.
+• Configured React Router to enable seamless navigation across 10+ pages, enhancing user flow.
+• Designed a modern UI with video playback, search, and category filters for easy content discovery.
+Technical Skills
+Languages: JavaScript, HTML, CSS, C/C++
+Frontend: React, Redux, Tailwind CSS, MUI
+Backend: Node.js Express.js, MongoDB, Firebase, REST APIs
+Dev Tools: Git, GitHub (Version Control), Postman, Netlify , Vercel , VS Code
+Relevant Coursework
+• Data Structures
+• MERN Stack
+• Operating System
+• Computer Networks
+• DBMS
+• SQL

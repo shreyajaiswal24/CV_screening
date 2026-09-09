@@ -1,0 +1,19 @@
+JORDAN REYES
+jordan.reyes@example.com | linkedin.com/in/jordanreyes
+
+EXPERIENCE
+
+Senior React Developer — Helio Systems
+January 2020 – present
+  - Built and shipped the Helio analytics platform, used by 8,000 customers.
+  - Introduced automated testing across the front end.
+
+React Developer — Cobalt Interactive
+2017 – 2019
+  - Delivered client applications in React and Redux.
+
+EDUCATION
+MSc Software Engineering, 2016
+
+SKILLS
+React, Redux, TypeScript, Webpack

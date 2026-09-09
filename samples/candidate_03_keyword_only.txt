@@ -1,0 +1,22 @@
+SAM OKONKWO
+sam.okonkwo@example.com | Lisbon, Portugal
+
+SUMMARY
+Backend engineer with an interest in modern front-end frameworks.
+
+EXPERIENCE
+
+Senior Backend Engineer — Meridian Data (Lisbon)
+February 2019 – present
+  - Designed and ran the ingestion pipeline handling 2M events per day.
+  - Owned the production deployment of the data platform.
+
+Backend Developer — Tessera GmbH
+2016 – 2019
+  - Built internal APIs in Python and Go.
+
+EDUCATION
+BSc Computing, 2015
+
+SKILLS
+Python, Go, PostgreSQL, Kafka, Docker, React, Vue, Angular, Kubernetes, Terraform

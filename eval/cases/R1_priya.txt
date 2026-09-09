@@ -1,0 +1,47 @@
+Priya Sharma
++91 90000 00000 | Noida, India
+priya.sharma@example.com | https://example.com/portfolio | https://example.com/portfolio | Portfolio
+SKILLS
+Languages Python, C/C++, JavaScript, TypeScript
+GenAI & LLMs LangChain, LangGraph, RAG, Context Engineering, Multi-Agent, Voice Agents, AI Avatars
+Vector Databases FAISS, Qdrant, Pinecone
+Backend & Infra FastAPI, PostgreSQL, Supabase, Docker, Redis, MongoDB, AWS
+Automation & Tools n8n, Zapier, Relevance AI, CI/CD, Git, Linux
+WORK EXPERIENCE
+HotInbox Dec 2025 – Present
+Software Engineer Texas, US (Remote)
+• Built an end-to-end GenAI decision systemusing LangChain-based multi-agent orchestrationand RAG
+to analyze campaign performance, ICP fit, and email sentiment, reducing manual analysis by 70–80%.
+• Implemented a hybrid RAG + LLM pipeline using campaign history, ICP definitions, CRM exports, and
+scraped data to drive personalization, sentiment classification, and human-in-the-loop recommendations.
+• Currently developing a dynamic voice AI agent using Vapi and ElevenLabs for inbound/outbound sales calls
+with real-time decisions and post-call sentiment reporting , reducing sales effort and cost.
+The Ladder July 2025 – Nov 2025
+AI Automation Engineer Gurugram, India (Hybrid)
+• Led client-facing GenAI and automation initiatives for enterprise clients, automating CRM workflows
+(HubSpot) and internal business processes to reduce manual effort and operational costs.
+• Built end-to-end automation and RAG pipelines using n8n (40+ node workflows), Apollo, Clay, Apify, and
+web crawlers to enable lead generation, enrichment, and AI-driven personalization.
+• Developed AI-powered creative and voice agent systems , including automated ad-creative pipelines (Mid-
+journey, DALL·E, GPT) and inbound/outbound voice agents for sales and support.
+Dreamable Inc. San Francisco Bay Area, US (Remote)
+AI Agent Intern June 2025 – August 2025
+• Built AI agents with n8n, LangChain, OpenAI for WhatsApp, LinkedIn, and lead workflows.
+• Designed RAG-based document Q&A systems using LangChain, embeddings, and vector databases.
+• Engineered voice AI agents with Whisper, ElevenLabs, and Tavus using multi-agent flows.
+PROJECTS
+Production-Ready AI Support Agent (RAG System) Jan 2026
+FastAPI, Inngest Cloud, Qdrant, OpenAI, Streamlit Live Link
+• Built a production-grade RAG system for PDF-based question answering using FastAPI, Inngest Cloud or-
+chestration, Qdrant, and OpenAI.
+• Designed an event-driven, asynchronous architecture with fault-tolerant ingestion, embedding, and querying
+workflows.
+• Enforced grounded LLM responses via retrieval-first prompting and conditional execution across Railway,
+Qdrant Cloud, and Streamlit.
+AI Avatar Agent with LiveKit, Tavus & OpenAI June 2025
+LiveKit, Tavus, OpenAI GPT-4o, Deepgram, Rime, Python Live Link
+• Built a real-time conversational AI avatar joining LiveKit rooms with low-latency audio/video streaming.
+• Integrated Tavus avatars, Deepgram/OpenAI STT, and Rime TTS for synchronized voice-video interactions.
+EDUCATION
+ABES Engineering College, Ghaziabad 2022 – 2026
+B.Tech in Computer Science

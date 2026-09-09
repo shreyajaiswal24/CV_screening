@@ -1,0 +1,23 @@
+NEHA VERMA
+neha.verma@example.com | Hyderabad, India
+
+SUMMARY
+Data analyst with an interest in artificial intelligence and automation.
+
+EXPERIENCE
+
+Senior Data Analyst — Delta Analytics
+April 2018 – Present
+  - Built dashboards in Tableau for the commercial team.
+  - Wrote SQL queries against a 4TB warehouse and maintained ETL jobs.
+  - Automated monthly reporting, saving roughly 20 hours per month.
+
+Data Analyst — Everline Studio
+2015 – 2018
+  - Reporting and ad-hoc analysis for the marketing team.
+
+EDUCATION
+BSc Statistics, 2015
+
+SKILLS
+SQL, Tableau, Excel, Python, LangChain, RAG, LLM, OpenAI, Docker, AWS, Kubernetes

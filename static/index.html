@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Screening — SIFT</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#12151a; --muted:#5f6875; --line:#e3e6ea;
+    --met:#0d7a4a; --metbg:#e7f6ee; --no:#a52034; --nobg:#fdecef;
+    --ns:#8a5a00; --nsbg:#fff5e0; --accent:#1c4fd8; --accentbg:#eaf0ff;
+    --warn:#8a3b00; --warnbg:#fff0e6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink)}
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 24px;
+         display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:20}
+  header h1{font-size:17px;margin:0;letter-spacing:-.2px;line-height:1.2}
+  header .spacer{flex:1}
+  .btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;
+       border-radius:8px;font-size:14px;cursor:pointer;font-weight:500}
+  .btn:hover{background:#f0f2f5}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  main{max-width:920px;margin:0 auto;padding:24px}
+  #toolbar{display:flex}
+  .slot{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        margin-top:18px;padding:18px 20px;color:var(--muted);font-size:14px}
+  .slot .spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);
+    border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite;
+    vertical-align:-2px;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  .banner{border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:14px}
+  .banner.err{background:var(--nobg);border:1px solid #f3c6cd;color:#7d1526}
+  .banner.warn{background:var(--warnbg);border:1px solid #f5d0b5;color:var(--warn)}
+  .banner ol{margin:8px 0 0 18px;padding:0}
+  .banner code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;font-size:13px}
+
+  .drop{background:var(--card);border:2px dashed var(--line);border-radius:14px;
+        padding:38px 24px;text-align:center;transition:.15s;cursor:pointer}
+  .drop.over{border-color:var(--accent);background:var(--accentbg)}
+  .drop h2{margin:0 0 6px;font-size:17px}
+  .drop p{margin:0;color:var(--muted);font-size:14px}
+  .drop .or{margin-top:14px;font-size:13px;color:var(--muted)}
+
+  .progress{background:var(--card);border:1px solid var(--line);border-radius:12px;
+            padding:16px 18px;margin-top:18px}
+  .bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:10px}
+  .bar>div{height:100%;background:var(--accent);transition:width .3s}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        margin-top:18px;overflow:hidden}
+  .card.medium_fit{border-left:4px solid #e6a23c}
+  .card.low_fit{border-left:4px solid var(--no)}
+  .card.great_fit{border-left:4px solid var(--met)}
+  .card.blocked{border-left:4px solid var(--muted)}
+  .chead{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;
+         align-items:flex-start;gap:12px}
+  .chead h3{margin:0;font-size:16px}
+  .chead .file{color:var(--muted);font-size:13px;margin-top:2px}
+  .pill{font-size:12px;font-weight:700;letter-spacing:.4px;
+        padding:5px 11px;border-radius:99px;white-space:nowrap}
+  .pill.GREAT_FIT{background:var(--metbg);color:var(--met)}
+  .pill.MEDIUM_FIT{background:var(--nsbg);color:var(--ns)}
+  .pill.LOW_FIT{background:var(--nobg);color:var(--no)}
+  .pill.BLOCKED{background:#eef0f3;color:var(--muted)}
+  .score{font-size:12px;color:var(--muted);margin-top:3px;text-align:right}
+  .mailbox{padding:14px 20px;background:#f2f6ff;border-top:1px solid #d6e0f7}
+  .mailbox h4{margin:0 0 8px;font-size:13.5px;color:var(--accent)}
+  .mailprev{background:#fff;border:1px solid #dbe3f5;border-radius:8px;padding:12px;
+            font-size:13px;white-space:pre-wrap;max-height:190px;overflow:auto}
+  .mailmeta{font-size:12px;color:var(--muted);margin-bottom:7px}
+  .blocked-note{font-size:13px;color:var(--muted);font-style:italic}
+  .dryrun{display:inline-block;background:#fff5e0;color:var(--ns);font-size:11px;
+          font-weight:700;padding:2px 7px;border-radius:5px;margin-left:6px}
+
+  .crit{padding:14px 20px;border-bottom:1px solid #f0f2f4}
+  .crit:last-of-type{border-bottom:0}
+  .crow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.3px}
+  .tag.MET{background:var(--metbg);color:var(--met)}
+  .tag.NOT_MET{background:var(--nobg);color:var(--no)}
+  .tag.NOT_STATED{background:var(--nsbg);color:var(--ns);border:1px dashed #e0b45c}
+  .cname{font-weight:600;font-size:14px}
+  .cdesc{color:var(--muted);font-size:13px;margin-top:2px}
+  blockquote{margin:9px 0 0;padding:9px 13px;background:#f7f8fa;border-left:3px solid var(--line);
+             border-radius:0 7px 7px 0;font-size:13.5px;color:#333}
+  .meta{font-size:11.5px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+  .ok{color:var(--met);font-weight:600}
+  .weak{color:var(--ns);font-weight:600}
+  .nostate{margin:9px 0 0;font-size:13.5px;color:var(--ns);font-style:italic}
+  .flag{margin-top:9px;padding:9px 13px;background:var(--warnbg);border-radius:8px;
+        font-size:13px;color:var(--warn)}
+  .exc{padding:12px 20px;background:#fffaf3;border-top:1px solid var(--line);font-size:13px}
+  .dupe{padding:11px 20px;background:#eef2ff;border-bottom:1px solid #d6dcf5;
+        font-size:13px;color:#33409c;display:flex;gap:9px;align-items:flex-start}
+  .dupe b{white-space:nowrap}
+  .exc b{color:var(--warn)}
+  .foot{padding:14px 20px;background:#fafbfc;border-top:1px solid var(--line)}
+  .foot .why{font-size:14px;margin-bottom:4px}
+  .foot .next{font-size:13.5px;color:var(--accent);font-weight:500}
+  .actions{padding:12px 20px;border-top:1px solid var(--line);display:flex;gap:8px;
+           align-items:center;flex-wrap:wrap}
+  .actions .stamp{margin-left:auto;font-size:11.5px;color:var(--muted)}
+  .done{background:var(--metbg);color:var(--met);padding:6px 12px;border-radius:8px;
+        font-size:13px;font-weight:600}
+
+  dialog{border:0;border-radius:14px;padding:0;max-width:640px;width:92%;
+         box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  dialog::backdrop{background:rgba(0,0,0,.35)}
+  .dlg-h{padding:16px 20px;border-bottom:1px solid var(--line);font-weight:600}
+  .dlg-b{padding:20px;max-height:64vh;overflow:auto}
+  .dlg-f{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 5px}
+  input[type=text],textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line);
+    border-radius:8px;font:inherit;font-size:14px}
+  textarea{min-height:60px;resize:vertical}
+  .frow{display:flex;gap:14px;align-items:flex-end}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:7px;min-height:4px}
+  .chip{background:var(--accentbg);color:var(--accent);border-radius:99px;
+        padding:4px 9px 4px 11px;font-size:13px;font-weight:500;display:flex;
+        align-items:center;gap:6px}
+  .chip button{background:none;border:0;color:var(--accent);cursor:pointer;
+               font-size:15px;line-height:1;padding:0 2px;opacity:.65}
+  .chip button:hover{opacity:1}
+  .preview{margin-top:18px;padding:13px 15px;background:#f7f8fa;border-radius:10px;
+           border:1px solid var(--line);font-size:13px}
+  .preview b{display:block;margin-bottom:7px;font-size:12px;color:var(--muted);
+             text-transform:uppercase;letter-spacing:.4px}
+  .preview li{margin:3px 0}
+  .preview .req{color:var(--no);font-weight:600;font-size:11px}
+  .preview .opt{color:var(--muted);font-size:11px}
+  .preview .code{color:var(--met);font-size:11px;font-weight:600}
+  .chk{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:13px;font-weight:500}
+  .empty{text-align:center;color:var(--muted);padding:40px 20px;font-size:14px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CV Screening</h1>
+  <span class="spacer"></span>
+  <button class="btn" id="btnCriteria">Criteria</button>
+  <button class="btn" id="btnExport" disabled
+          title="Screen some CVs first — then you can export them.">Export results</button>
+</header>
+
+<main>
+  <div id="banner"></div>
+
+  <div class="drop" id="drop">
+    <h2>Drop CVs here</h2>
+    <p id="roleLabel">PDF, Word or text files. You can drop several at once.</p>
+    <div class="or">or <u>click to choose files</u><span id="driveOr"></span></div>
+    <input type="file" id="fileInput" multiple hidden
+           accept=".pdf,.docx,.txt,.md">
+  </div>
+
+  <div id="progress" style="display:none" class="progress">
+    <div id="progressText">Screening…</div>
+    <div class="bar"><div id="progressBar" style="width:0%"></div></div>
+  </div>
+
+  <div id="toolbar" style="display:none;margin-top:20px;align-items:center;gap:10px">
+    <span class="meta" id="countLabel"></span>
+    <span class="spacer" style="flex:1"></span>
+    <label class="meta" style="display:flex;align-items:center;gap:6px">Sort
+      <select id="sortMode" style="width:auto;padding:5px 8px;font-size:13px">
+        <option value="fit">Best fit first</option>
+        <option value="order">Order uploaded</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="results"></div>
+
+  <div id="pager" style="display:none;justify-content:center;align-items:center;
+       gap:10px;margin:22px 0 40px">
+    <button class="btn" id="prevPage">‹ Previous</button>
+    <span class="meta" id="pageLabel"></span>
+    <button class="btn" id="nextPage">Next ›</button>
+  </div>
+</main>
+
+<dialog id="criteriaDlg">
+  <div class="dlg-h">What are you screening for?</div>
+  <div class="dlg-b">
+    <div class="frow">
+      <div style="flex:2">
+        <label>Job title</label>
+        <input type="text" id="roleInput" placeholder="AI Engineer">
+      </div>
+      <div style="flex:1">
+        <label>Minimum experience</label>
+        <div style="display:flex;align-items:center;gap:7px">
+          <input type="number" id="minYears" min="0" max="40" step="1" value="0" style="width:80px">
+          <span class="meta">years</span>
+        </div>
+      </div>
+    </div>
+
+    <label>About the role <span class="meta">(optional — paste the job description)</span></label>
+    <textarea id="summaryInput" placeholder="A few lines about the role."></textarea>
+
+    <label>Must have <span class="meta">— a candidate without these is a low fit</span></label>
+    <div class="chips" id="mustChips"></div>
+    <input type="text" id="mustInput" placeholder="Type a skill and press Enter — e.g. Python">
+
+    <label>Nice to have</label>
+    <div class="chips" id="niceChips"></div>
+    <input type="text" id="niceInput" placeholder="Type a skill and press Enter — e.g. AWS">
+
+    <label>Location</label>
+    <input type="text" id="locInput" placeholder="India">
+
+    <label>Anything else <span class="meta">(optional, one per line)</span></label>
+    <textarea id="customInput" placeholder="Has shipped to production with real users"></textarea>
+
+    <div class="preview" id="critPreview"></div>
+  </div>
+  <div class="dlg-f">
+    <button class="btn" id="critCancel">Cancel</button>
+    <button class="btn primary" id="critSave">Save</button>
+  </div>
+</dialog>
+
+<dialog id="overrideDlg">
+  <div class="dlg-h">Change this decision</div>
+  <div class="dlg-b">
+    <div id="ovContext" style="font-size:14px;color:var(--muted)"></div>
+    <label>Your decision</label>
+    <select id="ovStatus">
+      <option value="MET">Met — the candidate does have this</option>
+      <option value="NOT_MET">Not met — the candidate does not have this</option>
+      <option value="NOT_STATED">Not stated — the CV doesn't say</option>
+    </select>
+    <label>Why? (optional, but it's what you'll read in two weeks)</label>
+    <textarea id="ovNote" placeholder="e.g. Confirmed on the phone — based in Lisbon."></textarea>
+  </div>
+  <div class="dlg-f">
+    <button class="btn" id="ovCancel">Cancel</button>
+    <button class="btn primary" id="ovSave">Save my decision</button>
+  </div>
+</dialog>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let CRITERIA = null, RESULTS = [], OVERRIDE_CTX = null;
+const PAGE_SIZE = 3, CONCURRENCY = 3;
+let page = 0, sortMode = 'fit';
+const TIER_RANK = {GREAT_FIT: 0, MEDIUM_FIT: 1, LOW_FIT: 2, BLOCKED: 3};
+
+/* ---------- startup health check: tell her exactly what to fix ---------- */
+async function health(){
+  const h = await (await fetch('/api/health')).json();
+  $('#roleLabel').textContent = h.role
+    ? `Screening for ${h.role} — ${h.criteria_count} things to check`
+    : 'No role set yet — click Criteria to start.';
+  if (!h.ok){
+    $('#banner').innerHTML = `<div class="banner err"><b>Setup isn't finished yet.</b>
+      <ol>${h.problems.map(p=>`<li>${esc(p).replace(/\n/g,'<br>')}</li>`).join('')}</ol></div>`;
+  }
+  if (h.drive_configured) $('#driveOr').innerHTML = ` · <a href="#" id="scanDrive">scan my Drive folder</a>`;
+  return h;
+}
+
+/* ---------- screening ---------- */
+function refreshExport(){
+  const btn = $('#btnExport');
+  const ok = RESULTS.filter(r => !r.error_code).length;
+  btn.disabled = ok === 0;
+  btn.textContent = ok ? `Export results (${ok})` : 'Export results';
+  btn.title = ok
+    ? `Save ${ok} screened candidate(s) to your results file.`
+    : (RESULTS.length
+        ? 'None of those files could be screened, so there is nothing to export yet.'
+        : 'Screen some CVs first — then you can export them.');
+}
+
+function setProgress(done, total, name){
+  $('#progress').style.display = total ? 'block' : 'none';
+  $('#progressText').textContent = done >= total
+    ? `Finished — ${total} screened.`
+    : `Screening ${done+1} of ${total}… (${name})`;
+  $('#progressBar').style.width = `${Math.round(done/total*100)}%`;
+}
+
+async function runPool(items, worker, limit){
+  // Screen several CVs at once instead of one after another. The server-side
+  // rate limiter still paces the API, so this is safe - it just stops the
+  // browser waiting on a queue it does not need to wait on.
+  let next = 0, done = 0;
+  const total = items.length;
+  await Promise.all(Array.from({length: Math.min(limit, total)}, async () => {
+    while (next < total){
+      const i = next++;
+      await worker(items[i], i);
+      setProgress(++done, total, '');
+    }
+  }));
+}
+
+async function screenFiles(files){
+  const list = [...files];
+  if (!list.length) return;
+  RESULTS = list.map((f, i) => ({_pending: true, _i: i, source_file: f.name,
+                                 run_id: 'pending_' + i, assessments: []}));
+  page = 0;
+  renderResults();
+  setProgress(0, list.length, list[0].name);
+
+  await runPool(list, async (file, i) => {
+    const fd = new FormData(); fd.append('file', file);
+    let r;
+    try {
+      r = await (await fetch('/api/screen', {method:'POST', body:fd})).json();
+    } catch(e) {
+      r = {error_code:'NO_CONNECTION',
+           error_message:'Lost connection to SIFT. Is it still running?',
+           source_file:file.name, assessments:[], verdict:'BLOCKED', meta:{}};
+    }
+    r._i = i;
+    RESULTS[i] = r;
+    renderResults();
+  }, CONCURRENCY);
+
+  refreshExport();
+  setTimeout(()=> $('#progress').style.display='none', 1500);
+}
+
+function sortedResults(){
+  const copy = [...RESULTS];
+  if (sortMode === 'fit'){
+    copy.sort((a,b) => {
+      const ra = a._pending ? 9 : (TIER_RANK[a.verdict] ?? 9);
+      const rb = b._pending ? 9 : (TIER_RANK[b.verdict] ?? 9);
+      if (ra !== rb) return ra - rb;
+      return (b.criteria_met||0) - (a.criteria_met||0) || a._i - b._i;
+    });
+  }
+  return copy;
+}
+
+function renderResults(){
+  const all = sortedResults();
+  const pages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+  if (page > pages - 1) page = pages - 1;
+  const slice = all.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+
+  $('#results').innerHTML = slice.map(r => r._pending
+    ? `<div class="slot"><span class="spin"></span>Screening ${esc(r.source_file)}…</div>`
+    : card(r)).join('');
+
+  const done = RESULTS.filter(r => !r._pending).length;
+  $('#toolbar').style.display = all.length ? 'flex' : 'none';
+  $('#pager').style.display = all.length > PAGE_SIZE ? 'flex' : 'none';
+  $('#countLabel').textContent =
+    `${done} of ${all.length} screened` +
+    (done ? ` · ${RESULTS.filter(r=>r.verdict==='GREAT_FIT').length} great fit` : '');
+  $('#pageLabel').textContent = `Page ${page+1} of ${pages}`;
+  $('#prevPage').disabled = page === 0;
+  $('#nextPage').disabled = page >= pages - 1;
+}
+
+$('#prevPage').onclick = ()=>{ page--; renderResults(); window.scrollTo({top:0,behavior:'smooth'}); };
+$('#nextPage').onclick = ()=>{ page++; renderResults(); window.scrollTo({top:0,behavior:'smooth'}); };
+$('#sortMode').onchange = e => { sortMode = e.target.value; page = 0; renderResults(); };
+
+/* ---------- rendering ---------- */
+function critMeta(c){
+  const byId = {}; (CRITERIA?.criteria||[]).forEach(x=>byId[x.id]=x);
+  return byId[c] || {};
+}
+
+function assessmentHTML(a, runId){
+  const spec = critMeta(a.criterion_id);
+  const label = {MET:'MET', NOT_MET:'NOT MET', NOT_STATED:'NOT STATED'}[a.status] || a.status;
+  let body;
+  if (a.evidence_quote){
+    const strength = a.evidence_strength === 'WEAK'
+      ? `<span class="weak">weak — from a skills list</span>`
+      : `<span class="ok">strong — from a role</span>`;
+    body = `<blockquote>“${esc(a.evidence_quote)}”</blockquote>
+      <div class="meta"><span class="ok">✓ found in the CV (${esc(a.verification_method)})</span>
+      <span>${strength}</span><span>confidence ${Math.round((a.confidence||0)*100)}%</span></div>`;
+  } else {
+    body = `<div class="nostate">The CV does not say. Nothing was assumed.</div>`;
+  }
+  const flag = a.needs_review
+    ? `<div class="flag"><b>Needs your attention.</b> ${esc(a.review_reason||'')}</div>` : '';
+  return `<div class="crit" data-crit="${esc(a.criterion_id)}">
+    <div class="crow"><span class="tag ${a.status}">${label}</span>
+      <span class="cname">${esc(spec.description || a.criterion_id)}</span>
+      ${spec.required ? '<span class="meta">required</span>' : ''}</div>
+    ${body}${flag}
+    <div style="margin-top:9px">
+      <button class="btn" style="padding:4px 10px;font-size:12.5px"
+        onclick="openOverride('${runId}','${esc(a.criterion_id)}','${a.status}')">Change this</button>
+    </div>
+  </div>`;
+}
+
+function dupeHTML(r){
+  const d = (r.exceptions||[]).find(e => e.type === 'DUPLICATE_PERSON');
+  if (!d) return '';
+  return `<div class="dupe"><b>Applied before</b><span>${esc(d.detail)}</span></div>`;
+}
+
+function card(r){
+  if (r.error_code){
+    return `<div class="card blocked"><div class="chead">
+      <div><h3>${esc(r.source_file)}</h3><div class="file">Could not screen this file</div></div>
+      <span class="pill BLOCKED">SKIPPED</span></div>
+      <div class="exc"><b>${esc(r.error_code)}</b> — ${esc(r.error_message)}</div></div>`;
+  }
+  const p = r.profile || {}, m = r.meta || {};
+  const exc = (r.exceptions||[]).filter(e=>e.severity==='high');
+  return `<div class="card ${r.verdict.toLowerCase()}" data-run="${r.run_id}">
+    <div class="chead">
+      <div><h3>${esc(p.name || 'Unnamed candidate')}</h3>
+        <div class="file">${esc(r.source_file)}
+        ${p.location ? ' · ' + esc(p.location) : ''}
+        ${p.years_experience != null ? ' · ' + p.years_experience + ' yrs' : ''}</div></div>
+      <div style="margin-left:auto;text-align:right">
+        <span class="pill ${r.verdict}">${r.verdict.replace('_',' ')}</span>
+        <div class="score">${r.criteria_met}/${r.criteria_total} criteria met</div>
+      </div>
+    </div>
+    ${dupeHTML(r)}
+    ${(r.assessments||[]).map(a=>assessmentHTML(a, r.run_id)).join('')}
+    ${exc.length ? `<div class="exc">${exc.map(e=>`<div><b>${esc(e.type)}</b> — ${esc(e.detail||'')}</div>`).join('')}</div>` : ''}
+    <div class="foot">
+      <div class="why">${esc(r.verdict_reason)}</div>
+      <div class="next">→ ${esc(r.next_action)}</div>
+    </div>
+    ${mailboxHTML(r)}
+    <div class="actions">
+      <button class="btn primary" onclick="approveAll('${r.run_id}', this)">Approve</button>
+      <span class="stamp">${(m.latency_ms/1000).toFixed(1)}s ·
+        ${m.input_tokens+m.output_tokens} tokens · ~$${(m.est_cost_usd||0).toFixed(5)} ·
+        ${esc(m.model||'')}${m.retries ? ' · '+m.retries+' retry' : ''}</span>
+    </div></div>`;
+}
+
+/* ---------- interview invitation: two explicit clicks, never automatic ---------- */
+function mailboxHTML(r){
+  const e = r.email;
+  if (!e) return '';
+  if (!e.can_send){
+    return `<div class="mailbox"><h4>Interview invitation</h4>
+      <div class="blocked-note">${esc(e.blocked_reason || 'Not available for this candidate.')}</div>
+      ${/No email address/.test(e.blocked_reason||'') ? `
+        <div style="margin-top:9px;display:flex;gap:8px;align-items:center">
+          <input type="text" id="addr_${r.run_id}" placeholder="type their email address"
+                 style="max-width:280px">
+          <button class="btn" onclick="unlockMail('${r.run_id}')">Use this address</button>
+        </div>` : ''}
+    </div>`;
+  }
+  return `<div class="mailbox" id="mail_${r.run_id}">
+    <h4>Interview invitation ${e.dry_run ? '<span class="dryrun">DRY RUN — nothing will be sent</span>' : ''}</h4>
+    <div class="mailmeta">To: <b>${esc(e.to)}</b> &nbsp;·&nbsp; Subject: ${esc(e.subject)}</div>
+    <div class="mailprev" contenteditable="true" id="body_${r.run_id}"
+         oninput="stashBody('${r.run_id}', this)">${esc(e.body)}</div>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+      <button class="btn primary" onclick="sendMail('${r.run_id}', this)">
+        ${e.dry_run ? 'Preview send (dry run)' : 'Send invitation'}</button>
+      <span class="meta">Read it first — this goes to a real person and cannot be unsent.</span>
+    </div></div>`;
+}
+
+function stashBody(runId, el){
+  const r = RESULTS.find(x => x.run_id === runId);
+  if (r && r.email) r.email.body = el.innerText;   // survive pagination re-render
+}
+
+function unlockMail(runId){
+  const addr = document.getElementById('addr_'+runId).value.trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) return alert('That does not look like an email address.');
+  const r = RESULTS.find(x=>x.run_id===runId);
+  r.email.to = addr; r.email.can_send = true; r.email.blocked_reason = null;
+  renderResults();
+}
+
+async function sendMail(runId, btn){
+  const r = RESULTS.find(x=>x.run_id===runId);
+  const body = document.getElementById('body_'+runId).innerText;
+  const label = r.email.dry_run ? 'preview (nothing will actually be sent)' : 'REAL EMAIL';
+  if (!confirm(`Send this ${label} to ${r.email.to}?`)) return;
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const res = await fetch('/api/email/send', {method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({run_id: runId, to: r.email.to, body, confirm: true})});
+  const j = await res.json();
+  if (!res.ok){ btn.disabled = false; btn.textContent = 'Send invitation';
+                return alert(j.detail || 'Could not send.'); }
+  document.getElementById('mail_'+runId).innerHTML =
+    `<h4>Interview invitation</h4><div class="done">✓ ${esc(j.message)}</div>`;
+}
+
+/* ---------- human decisions ---------- */
+async function approveAll(runId, btn){
+  const r = RESULTS.find(x=>x.run_id===runId); if(!r) return;
+  for (const a of r.assessments){
+    await fetch('/api/decision', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({run_id:runId, criterion_id:a.criterion_id, action:'approved'})});
+  }
+  btn.outerHTML = '<span class="done">✓ Approved by you</span>';
+}
+
+function openOverride(runId, critId, current){
+  OVERRIDE_CTX = {runId, critId};
+  const spec = critMeta(critId);
+  $('#ovContext').textContent = spec.description || critId;
+  $('#ovStatus').value = current;
+  $('#ovNote').value = '';
+  $('#overrideDlg').showModal();
+}
+
+$('#ovCancel').onclick = ()=> $('#overrideDlg').close();
+$('#ovSave').onclick = async ()=>{
+  const {runId, critId} = OVERRIDE_CTX;
+  await fetch('/api/decision', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({run_id:runId, criterion_id:critId, action:'overridden',
+                          new_status:$('#ovStatus').value, note:$('#ovNote').value||null})});
+  const el = document.querySelector(`[data-run="${runId}"] [data-crit="${critId}"]`);
+  if (el) el.insertAdjacentHTML('beforeend',
+    `<div class="flag" style="background:var(--accentbg);color:var(--accent)">
+       <b>You changed this to ${$('#ovStatus').value.replace('_',' ')}.</b> Recorded.</div>`);
+  $('#overrideDlg').close();
+};
+
+/* ---------- criteria editor ---------- */
+function critRow(c = {id:'', description:'', required:false}){
+  return `<div class="critedit">
+    <button class="rm" onclick="this.parentElement.remove()">remove</button>
+    <label>Short name (no spaces)</label>
+    <input type="text" class="cid" value="${esc(c.id)}" placeholder="react_experience">
+    <label>What you're looking for</label>
+    <textarea class="cdescr" placeholder="3 or more years of professional React experience">${esc(c.description)}</textarea>
+    <label class="chk"><input type="checkbox" class="creq" ${c.required?'checked':''}> Must have (required)</label>
+  </div>`;
+}
+
+let MUST = [], NICE = [];
+
+function drawChips(){
+  const render = (arr, el, kind) => document.getElementById(el).innerHTML =
+    arr.map((v,i)=>`<span class="chip">${esc(v)}<button onclick="dropChip('${kind}',${i})">×</button></span>`).join('');
+  render(MUST, 'mustChips', 'must');
+  render(NICE, 'niceChips', 'nice');
+  drawPreview();
+}
+function dropChip(kind, i){ (kind==='must'?MUST:NICE).splice(i,1); drawChips(); }
+
+function readForm(){
+  return {
+    role: $('#roleInput').value.trim() || 'Unspecified role',
+    summary: $('#summaryInput').value.trim(),
+    filters: {
+      min_years: parseInt($('#minYears').value || '0', 10),
+      must_have_skills: MUST,
+      nice_to_have_skills: NICE,
+      location: $('#locInput').value.trim(),
+      custom: $('#customInput').value.split('\n').map(x=>x.trim()).filter(Boolean),
+    },
+    decision_rules: CRITERIA?.decision_rules || {},
+  };
+}
+
+function drawPreview(){
+  const f = readForm().filters;
+  const items = [];
+  if (f.min_years > 0) items.push([`${f.min_years}+ years of experience`, 'code']);
+  f.must_have_skills.forEach(sk => items.push([`Hands-on with ${sk}`, 'req']));
+  f.nice_to_have_skills.forEach(sk => items.push([`Experience with ${sk}`, 'opt']));
+  if (f.location) items.push([`Based in ${f.location}`, 'opt']);
+  f.custom.forEach(c => items.push([c, 'opt']));
+
+  const tag = {req:'<span class="req">must have</span>',
+               opt:'<span class="opt">nice to have</span>',
+               code:'<span class="code">checked from the CV dates</span>'};
+  $('#critPreview').innerHTML = items.length
+    ? `<b>${items.length} criteria — each judged separately, with the quote from the CV</b>
+       <ul style="margin:0;padding-left:18px">${items.map(([t,k])=>`<li>${esc(t)} ${tag[k]}</li>`).join('')}</ul>`
+    : `<b>Nothing to screen for yet</b>Add a skill, a number of years, or a location.`;
+}
+
+function chipInput(inputId, arr){
+  const el = $('#'+inputId);
+  el.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ',') return;
+    e.preventDefault();
+    const v = el.value.trim().replace(/,$/, '');
+    if (v && !arr.some(x => x.toLowerCase() === v.toLowerCase())) arr.push(v);
+    el.value = ''; drawChips();
+  });
+  el.addEventListener('blur', () => {
+    const v = el.value.trim();
+    if (v && !arr.some(x => x.toLowerCase() === v.toLowerCase())) { arr.push(v); el.value=''; drawChips(); }
+  });
+}
+
+$('#btnCriteria').onclick = async ()=>{
+  CRITERIA = await (await fetch('/api/criteria')).json();
+  const f = CRITERIA.filters || {};
+  $('#roleInput').value    = CRITERIA.role || '';
+  $('#summaryInput').value = CRITERIA.summary || '';
+  $('#minYears').value     = f.min_years || 0;
+  $('#locInput').value     = f.location || '';
+  $('#customInput').value  = (f.custom || []).join('\n');
+  MUST = [...(f.must_have_skills || [])];
+  NICE = [...(f.nice_to_have_skills || [])];
+
+  // First open on an older file: seed the chips from the existing criteria so
+  // nothing the user already set is silently lost.
+  if (!CRITERIA.filters && (CRITERIA.criteria || []).length){
+    CRITERIA.criteria.forEach(c => {
+      const label = c.short || c.id.replace(/_/g,' ');
+      (c.required ? MUST : NICE).push(label);
+    });
+  }
+  drawChips();
+  $('#criteriaDlg').showModal();
+};
+
+['roleInput','minYears','locInput','customInput','summaryInput']
+  .forEach(id => $('#'+id).addEventListener('input', drawPreview));
+chipInput('mustInput', MUST);
+chipInput('niceInput', NICE);
+
+$('#critCancel').onclick = ()=> $('#criteriaDlg').close();
+$('#critSave').onclick = async ()=>{
+  const body = readForm();
+  if (!body.filters.min_years && !body.filters.must_have_skills.length
+      && !body.filters.nice_to_have_skills.length && !body.filters.location
+      && !body.filters.custom.length)
+    return alert('Add at least one thing to screen for — a skill, a number of years, or a location.');
+  const res = await fetch('/api/criteria', {method:'PUT',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const j = await res.json();
+  if (!res.ok) return alert(j.detail || 'Could not save.');
+  $('#criteriaDlg').close();
+  CRITERIA = await (await fetch('/api/criteria')).json();
+  await health();
+};
+
+/* ---------- export ---------- */
+$('#btnExport').onclick = async ()=>{
+  const ids = RESULTS.filter(r=>!r.error_code).map(r=>r.run_id);
+  const res = await fetch('/api/export', {method:'POST',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify({run_ids: ids})});
+  const j = await res.json();
+  if (!res.ok) return alert(j.detail || j.error_message || 'Export failed.');
+  $('#banner').innerHTML = `<div class="banner warn" style="background:var(--metbg);
+    border-color:#bfe5d1;color:var(--met)">
+    ${j.rows ? `Exported ${j.rows} candidate(s)` : 'Nothing new to export'}
+    ${j.skipped ? ` — ${j.skipped} already exported earlier, skipped.` : ''}
+    ${j.rows ? ` to ${j.destination === 'google_sheet'
+      ? `<a href="${j.url}" target="_blank">your Google Sheet</a>`
+      : `<code>${esc(j.path)}</code>`}.` : '.'}</div>`;
+};
+
+/* ---------- drop zone ---------- */
+const drop = $('#drop'), fi = $('#fileInput');
+drop.onclick = e => { if (e.target.id !== 'scanDrive') fi.click(); };
+fi.onchange = () => screenFiles(fi.files);
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev, e=>{
+  e.preventDefault(); drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev, e=>{
+  e.preventDefault(); drop.classList.remove('over');}));
+drop.addEventListener('drop', e => screenFiles(e.dataTransfer.files));
+
+document.addEventListener('click', async e=>{
+  if (e.target.id !== 'scanDrive') return;
+  e.preventDefault(); e.stopPropagation();
+  const res = await fetch('/api/scan-drive', {method:'POST'});
+  const j = await res.json();
+  if (!res.ok) return alert(j.detail || j.error_message);
+  if (!j.files.length) return alert('No new CVs in that Drive folder.');
+  RESULTS = j.files.map((f,i)=>({_pending:true,_i:i,source_file:f.name,
+                                 run_id:'pending_'+i,assessments:[]}));
+  page = 0; renderResults();
+  await runPool(j.files, async (f, i) => {
+    const r = await (await fetch('/api/screen-drive', {method:'POST',
+      headers:{'Content-Type':'application/json'}, body: JSON.stringify(f)})).json();
+    r._i = i; RESULTS[i] = r; renderResults();
+  }, CONCURRENCY);
+  refreshExport();
+});
+
+$('#btnExport').addEventListener('click', e=>{
+  if (e.currentTarget.disabled) return;
+}, true);
+
+(async ()=>{
+  await health();
+  CRITERIA = await (await fetch('/api/criteria')).json();
+  // A page reload empties RESULTS, but earlier runs are still in the log and
+  // should still be exportable - otherwise the button dies for no visible reason.
+  try {
+    const {runs} = await (await fetch('/api/runs?limit=25')).json();
+    const done = runs.filter(r => r.status === 'completed');
+    if (done.length && !RESULTS.length){
+      RESULTS = done.map(r => ({run_id: r.run_id, error_code: null,
+                                source_file: r.source_file, assessments: [],
+                                verdict: r.verdict, meta: {}}));
+      $('#results').innerHTML =
+        `<div class="empty">${done.length} candidate(s) screened earlier are ready to export.<br>
+         Drop new CVs above to screen more.</div>`;
+      RESULTS = [];
+    }
+  } catch(e){}
+  refreshExport();
+})();
+</script>
+</body>
+</html>

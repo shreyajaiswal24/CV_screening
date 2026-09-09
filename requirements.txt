@@ -1,0 +1,23 @@
+# --- core ---
+groq>=0.32.0                  # LLM provider (free tier)
+langgraph>=1.2.0              # state machine: verify -> repair -> re-assess cycle
+pydantic>=2.10.0              # data contracts
+pydantic-settings>=2.7.0      # secrets/config separation
+pyyaml>=6.0                   # criteria.yaml / config.yaml
+
+# --- document ingest ---
+pypdf>=6.0.0
+python-docx>=1.1.0
+
+# --- interface ---
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+python-multipart>=0.0.9       # file upload
+
+# --- integrations ---
+google-api-python-client>=2.150.0   # Google Drive (read CVs)
+google-auth>=2.35.0
+gspread>=6.1.0                      # Google Sheets (write results)
+
+# --- observability (optional; system runs without it) ---
+langfuse>=2.53.0

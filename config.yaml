@@ -1,0 +1,44 @@
+# Non-secret settings. Safe to commit and share.
+
+model: "openai/gpt-oss-20b"         # 120b daily budget exhausted; 20b has its own
+fallback_model: "qwen/qwen3.8-27b"
+
+# Purpose-built prompt-injection classifier (Groq). Second layer for case F3,
+# alongside the regex scan. Leave blank to use the regex only.
+injection_guard_model: "meta-llama/llama-prompt-guard-2-86m"
+
+# Groq free tier limits TOKENS PER MINUTE, not requests - 8000 TPM on
+# gpt-oss-120b. A CV costs ~2500-5000 tokens across two calls, so the real
+# ceiling is about two CVs a minute. Left a margin below the published 8000.
+requests_per_minute: 25
+tokens_per_minute: 6500
+max_repair_retries: 2
+
+# Below this confidence a criterion is routed to human review regardless of status.
+confidence_threshold: 0.70
+
+# Quote verification: below this similarity a quote is treated as fabricated.
+fuzzy_match_threshold: 0.95
+
+# Interview invitations.
+# send_email is FALSE by default: drafts are rendered and logged to
+# data/sent_emails.log but nothing leaves the machine. Turn it on deliberately.
+email:
+  send_email: true
+  company_name: "SIFT Demo"
+  sender_name: "Shreya (hiring)"
+  reply_to: ""
+  call_duration: "30-minute"
+  subject: "Interview - {role} at {company}"
+
+# Google integration (leave blank to run purely local)
+drive_folder_id: ""
+results_sheet_id: ""
+
+# Published Groq rates ($ per 1M tokens) - used to report an estimated cost.
+# Actual spend on the free tier is $0; this keeps the metric comparable.
+# Approximate published Groq rates, used only to report an estimated cost.
+pricing:
+  openai/gpt-oss-120b: { input: 0.15, output: 0.75 }
+  openai/gpt-oss-20b:  { input: 0.10, output: 0.50 }
+  qwen/qwen3.8-27b:    { input: 0.29, output: 0.59 }

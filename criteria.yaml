@@ -1,0 +1,42 @@
+# Written by the SIFT criteria editor. 'filters' is the source of
+# truth; 'criteria' below is generated from it.
+role: AI Engineer (Junior)
+summary: Build LLM-powered features - RAG pipelines, agents, APIs.
+filters:
+  min_years: 0
+  must_have_skills:
+  - Python
+  - LangChain
+  nice_to_have_skills:
+  - RAG
+  - FastAPI
+  location: India
+  custom: []
+criteria:
+- id: skill_python
+  description: Hands-on experience with Python, demonstrated in a role or project
+    - not only listed in a skills section
+  required: true
+  short: Python
+- id: skill_langchain
+  description: Hands-on experience with LangChain, demonstrated in a role or project
+    - not only listed in a skills section
+  required: true
+  short: LangChain
+- id: skill_rag
+  description: Experience with RAG
+  required: false
+  short: RAG
+- id: skill_fastapi
+  description: Experience with FastAPI
+  required: false
+  short: FastAPI
+- id: location
+  description: Based in India, or able to work India business hours
+  required: false
+  short: based in India
+decision_rules:
+  medium_fit_min: 2
+  great_fit_min: 4
+  required_are_gating: true
+  email_min_tier: GREAT_FIT

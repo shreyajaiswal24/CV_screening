@@ -24,7 +24,7 @@ fuzzy_match_threshold: 0.95
 # send_email is FALSE by default: drafts are rendered and logged to
 # data/sent_emails.log but nothing leaves the machine. Turn it on deliberately.
 email:
-  send_email: false
+  send_email: true
   company_name: "SIFT Demo"
   sender_name: "Shreya (hiring)"
   reply_to: ""

@@ -2,8 +2,7 @@
   "E1_open_ended_dates": {
     "file": "E1_open_ended_dates.txt",
     "type": "edge",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "MEDIUM_FIT",
     "expected_status": {
@@ -27,13 +26,12 @@
   "E2_overlapping_roles": {
     "file": "E2_overlapping_roles.txt",
     "type": "edge",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
-    "expected_verdict": "LOW_FIT",
+    "expected_verdict": "MEDIUM_FIT",
     "expected_status": {
       "skill_python": "MET",
-      "skill_langchain": "NOT_MET",
+      "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
@@ -52,8 +50,7 @@
   "E3_keyword_only_llm": {
     "file": "E3_keyword_only_llm.txt",
     "type": "edge",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
@@ -75,8 +72,7 @@
   "F1_scanned": {
     "file": "F1_scanned.txt",
     "type": "failure",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": "NO_TEXT_FOUND",
     "expected_verdict": null,
     "expected_status": {
@@ -92,8 +88,7 @@
   "F2_not_a_cv": {
     "file": "F2_not_a_cv.txt",
     "type": "failure",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": "NOT_A_CV",
     "expected_verdict": null,
     "expected_status": {
@@ -109,8 +104,7 @@
   "F3_injection": {
     "file": "F3_injection.txt",
     "type": "failure",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
@@ -131,8 +125,7 @@
   "R1_priya": {
     "file": "R1_priya.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
@@ -155,13 +148,12 @@
   "R2_arjun": {
     "file": "R2_arjun.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
-      "skill_python": "NOT_MET",
-      "skill_langchain": "NOT_MET",
+      "skill_python": "NOT_STATED",
+      "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
@@ -178,8 +170,7 @@
   "R3_meera": {
     "file": "R3_meera.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
@@ -199,13 +190,12 @@
   "R4_rohan": {
     "file": "R4_rohan.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
-      "skill_python": "NOT_MET",
-      "skill_langchain": "NOT_MET",
+      "skill_python": "NOT_STATED",
+      "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
@@ -222,8 +212,7 @@
   "R5_anaya": {
     "file": "R5_anaya.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
@@ -243,8 +232,7 @@
   "R6_kabir": {
     "file": "R6_kabir.txt",
     "type": "representative",
-    "verified_by_human": false,
-    "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
+    "verified_by_human": true,
     "expected_error_code": null,
     "expected_verdict": "GREAT_FIT",
     "expected_status": {

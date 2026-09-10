@@ -6,9 +6,47 @@ All numbers below come from one reproducible evaluation run over the 12-case set
 
 ## 1. Test-set results and baseline comparison
 
-| Metric | A — Manual | B — Plain ChatGPT | C — SIFT before | C — SIFT after |
-|---|---|---|---|---|
-| Cases passing the rubric (of 12) | [X] | [X] | [8] | **[12]** |
+| Metric | A — Manual | B — Plain ChatGPT | C — SIFT |
+|---|---|---|---|
+| **Time per CV** | **3 min 00 s** | **25 s** | **49 s** (4.6 s unthrottled) |
+| **Cases passing the rubric (of 12)** | — | — | **8/12 (67%)** |
+| **Fabricated quotes** | 0 | not verifiable | **0 of 26** |
+| Schema valid | — | no fixed shape | 12/12 |
+| Evidence verified against the source | in your head | no | 12/12 |
+| Gaps flagged rather than filled | — | — | 8/12 |
+| Verdict follows the stated rules | — | — | 12/12 |
+| Outputs needing no human edit | — | — | 8/12 |
+| Cost per CV | labour | — | **$0.0014** |
+| Decision + reason recorded | no | no | **yes** |
+
+### Latency is a billing constraint, not an engineering one
+
+Measured within a single evaluation run — same model, same code, same day:
+
+| | Latency |
+|---|---|
+| First 2 runs, before the per-minute token budget filled | **4,620 ms and 4,666 ms** |
+| Remaining 8 runs, once the rate limiter engaged | 57,968 – 63,357 ms |
+
+The model takes about **4.6 seconds** per CV. The remaining ~55 seconds is the
+system waiting so that its next request is not refused. Groq's free tier allows
+8,000 tokens per minute and a CV costs ~3,844 tokens, which caps throughput at
+roughly **1.6 CVs per minute and 40 per day**.
+
+On a paid tier the same code runs at ~4.6 s per CV. Cost per CV is $0.0017, so
+screening a 60-candidate role costs about **$0.10** — against roughly three
+hours of a hiring manager's attention at the measured 3 minutes per CV.
+
+**Quote verification tiers** (26 quotes): 81% exact, 8% normalised, **12%
+despaced**. That last figure matters — three quotes verified only because of the
+despaced tier added on Day 3. Without it they would have been flagged as
+fabrications and three qualified candidates downgraded.
+
+**Observed about arm B:** ChatGPT answered fastest, but returned several
+paragraphs of prose with no fixed shape. The reviewer's note was that it was
+*"too lengthy to read"*. Twelve of those cannot be put side by side and
+compared, and none of them survives as a record. Speed of generation is not the
+bottleneck; speed to a decision you can trust is.
 | Criterion accuracy (of 48 judgments) | [X] | [X] | [X] | [X] |
 | **Fabricated evidence** | 0 | [X] | [X] | **0** |
 | Gaps flagged rather than filled | [X] | [X] | [X] | [X] |

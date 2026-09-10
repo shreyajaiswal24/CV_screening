@@ -59,11 +59,20 @@ Three arms were measured on the same 12 CVs, so the system is compared against t
 
 | | A — Manual | B — Plain ChatGPT | C — SIFT |
 |---|---|---|---|
-| Median time per CV | [X] | [X] | measured Day 4 |
-| Criteria correctly assessed (of 48) | [X] | [X] | measured Day 4 |
-| Fabricated evidence | 0 | [X] | measured Day 4 |
-| Missing information flagged, not guessed | [X] | [X] | measured Day 4 |
-| Decision + reason recorded | [X]/12 | 0/12 | measured Day 4 |
+| **Time per CV** | **3 min 00 s** | **25 s** | **49 s** (4.6 s unthrottled) |
+| Output you can scan at a glance | yes | **no — a wall of prose** | yes |
+| Every claim traceable to a quoted line | in your head | no | **yes, checked in code** |
+| Fabricated evidence | 0 | not checked | **0 of 26 quotes** |
+| Consistent shape across candidates | no | no | yes |
+| Decision + reason recorded | no | no | yes |
+
+**SIFT is slower than ChatGPT, and that is reported as measured.** The 49 s
+includes rate-limiting on a free tier; the same screening runs in 4.6 s
+unthrottled. But raw generation time is the wrong measure. ChatGPT produced its
+answer in 25 s and then handed back several paragraphs of prose that still had
+to be read, and every claim in it still had to be checked against the CV by
+hand. The honest metric is **time to a decision you can act on**, and on that
+measure the comparison is 3 minutes against under a minute.
 
 **Finding from arm B:** given a CV with no location stated, ChatGPT reported the timezone criterion as met. It filled the gap rather than flagging it. Generation is already solved; verification is not. That gap defines the system.
 

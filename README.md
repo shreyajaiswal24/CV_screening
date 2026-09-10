@@ -1,22 +1,117 @@
 # CV Screening
 
-Screens CVs against your criteria and shows you **the evidence for every
-judgment**, quoted from the CV itself.
+Screens CVs against your criteria and **shows you the line from the CV that
+proves every judgment** — checked by code, not by another AI.
 
-It does not decide who to hire. It reads each CV, checks it against the
-criteria you wrote, quotes the line that proves each answer, and clearly says
-**NOT STATED** when the CV is silent — it never guesses.
+It never decides who to hire. It reads each CV, checks it against criteria you
+wrote in plain English, quotes the evidence, and says **NOT STATED** when the CV
+is silent. It never guesses.
 
-You approve, edit, or override everything before it counts.
+---
+
+## The problem
+
+Screening 40–70 applications for one role takes an evening. Worse, it isn't
+consistent: the first CV gets three minutes of careful reading, the fortieth
+gets twenty seconds. Same criteria, different attention — and two weeks later
+nobody can say why a particular candidate was rejected, because nothing was
+written down.
+
+The obvious fix is to paste the CV into ChatGPT. It answers in 25 seconds. But
+give it a CV that never mentions where the candidate lives, ask whether they
+meet a location requirement, and **it says yes** — it fills the gap, because a
+plausible answer feels more useful than admitting ignorance.
+
+> **Generation is already solved. Verification is not.**
+>
+> The expensive part of screening is not writing an assessment. It is knowing
+> whether to believe it. That is what this system does.
+
+---
+
+## What you get back
+
+```
+  Priya Sharma                                    GREAT FIT
+  priya_sharma_cv.pdf · Noida, India              4/5 criteria met
+
+  ✅ MET          Python
+     "Built and deployed a document question-answering system in Python"
+     ✓ found in the CV (exact)   strong — from a role   confidence 96%
+
+  ✅ MET          LangChain
+     "Implemented a hybrid RAG + LLM pipeline using campaign history"
+     ✓ found in the CV (exact)   strong — from a role   confidence 95%
+
+  ❓ NOT STATED   Shipped to production
+     The CV does not say. Nothing was assumed.
+
+  ⚠️ WEAK         AWS
+     "Backend & Infra: FastAPI, PostgreSQL, Docker, Redis, AWS"
+     Listed as a skill but not demonstrated in any role.
+
+  → Strong match. Confirm production experience, then invite to interview.
+
+  [ Approve ]  [ Change this ]        9.1s · $0.002 · 2,700 tokens
+```
+
+Every quote is checked against the document by a text search before you see it.
+
+---
+
+## How it works
+
+```
+  CV file (PDF · DOCX · TXT)
+        │
+   1  INGEST         code     extract text, hash the content
+        │
+   2  PRE-FLIGHT     code     reject empty · not-a-CV · duplicate
+        │                     scan for hidden instructions
+   3  EXTRACT       model     the facts the document states — no judging
+        │
+   4  IDENTITY       code     has this person applied before, under another file?
+        │
+   5  ASSESS        model     per criterion: MET / NOT MET / NOT STATED + a quote
+        │
+   6  VERIFY         code   ★ is that quote actually in the document?
+        │                     ↺ if not, one corrective retry
+   7  DECIDE         code     fit tier from your own thresholds
+        │
+   8  APPROVE       human   ★ approve · edit · override — nothing skips this
+        │
+   9  RECORD         code     run log · Excel export · interview invitation
+```
+
+**Stage 6 is the point of the whole system.** The model returns a quote claiming
+to come from the CV. Code then searches the document for it. If it isn't there,
+the judgment is thrown away.
+
+The instinct is to ask a second model to check the first — but a model
+confirming its own honesty about a checkable fact isn't a check. So it's a text
+search. Boring, deterministic, and the only reason this can claim **zero
+fabricated evidence**.
+
+### Who does what
+
+| | Responsible for |
+|---|---|
+| **Code** | Parsing, validation, duplicate detection, date arithmetic, quote verification, tier rules, logging |
+| **Model** | Reading messy prose and citing the line that supports a judgment |
+| **Human** | Approving, resolving gaps, overriding, sending any email |
+
+Three things were **taken away from the model** during the build after they went
+wrong: date arithmetic, the verdict rules, and evidence verification. All three
+are plain Python now.
 
 ---
 
 ## Setup — 3 steps, about 5 minutes
 
 **1. Install**
-
-```
-git clone <this repo> && cd cv-screening
+```bash
+git clone https://github.com/shreyajaiswal24/CV_screening.git
+cd CV_screening
 ./setup.sh
 ```
 
@@ -26,153 +121,135 @@ Open the file called `.env` and paste your key after `GROQ_API_KEY=`
 Get a free one at <https://console.groq.com/keys>.
 
 **3. Start**
-
-```
+```bash
 ./run.sh
 ```
 
-Then open <http://localhost:8000> in your browser.
+Open <http://localhost:8000>.
 
 ---
 
-## Your first run
+## Using it
 
-1. Click **Criteria** and write what you're looking for, in plain English.
-   Tick "Must have" for anything a candidate cannot be without.
-2. Drag some CVs onto the page — PDF, Word or text. Several at once is fine.
-3. Read the results. Approve, change, or skip each one.
-4. Click **Export results** when you're done.
+**Set what you're screening for** — click **Criteria**. Plain English, no code:
 
-There are two example CVs in `samples/` if you want to try it before using
-real ones.
+```
+  Job title:   AI Engineer            Minimum experience: 2 years
+  Must have:   [Python] [LangChain]
+  Nice to have:[AWS] [Docker]
+  Location:    India
+```
 
----
+**Drop CVs on the page.** PDF, Word or text. Several at once.
 
-## Reading the results
+**Read the results.** Each judgment carries its quote. Approve, edit, or
+override — nothing counts until you do.
 
-| What you see | What it means |
+**Export.** Downloads a formatted Excel file: fit tier colour-coded, evidence
+included, filterable. Your co-founder can read it without opening the app.
+
+**Invite.** For a GREAT FIT, the system drafts an interview email addressed to
+the address it read from the CV. You read it and click send. It never guesses an
+address, never sends below GREAT FIT, and never sends twice.
+
+### Reading the results
+
+| | Meaning |
 |---|---|
-| **MET** + a quote | The CV says so. The quote is checked against the document. |
-| **NOT MET** + a quote | The CV shows the candidate does *not* meet this. |
-| **NOT STATED** | The CV doesn't say. Nothing was assumed. **You need to ask.** |
-| `strong — from a role` | The quote came from a dated job or project. |
-| `weak — from a skills list` | The word appears in a keyword list only. Not proof. |
-| ⚠️ **Needs your attention** | Something is uncertain. Read this one yourself. |
+| **MET** + a quote | The CV says so, and the quote was found in the document |
+| **NOT MET** + a quote | The CV shows the candidate does *not* meet this |
+| **NOT STATED** | The CV is silent. **You need to ask.** |
+| `strong — from a role` | Quoted from a dated job or project |
+| `weak — from a skills list` | The word appears in a keyword list. Not proof |
+| ⚠️ flag | Something is uncertain. Read this one yourself |
 
-**Verdicts**
+**Fit tiers:** GREAT FIT (4+ criteria met) · MEDIUM FIT (2–3) · LOW FIT (0–1, or
+any must-have not met).
 
-- **ADVANCE** — every required criterion met with solid evidence.
-- **REVIEW** — something is missing, weak, or uncertain. Your call.
-- **REJECT** — a required criterion is clearly not met.
-- **SKIPPED** — the file couldn't be read. The message tells you why.
+### What you must check before approving
 
----
-
-## What you must check before approving
-
-1. **Anything with a ⚠️ flag.** Always.
-2. **Anything marked NOT STATED.** The system will never guess, so it's on you
-   to ask the candidate.
-3. **Your top few candidates, in full.** The system reads the words on the
-   page. It cannot see that three previous employers all folded, or that
-   someone's trajectory is unusual. That judgment is still yours.
+1. **Anything flagged.** Always.
+2. **Anything NOT STATED.** The system won't guess, so it's on you to ask.
+3. **Your top few candidates, in full.** The system reads the words on the page.
+   It cannot see that three previous employers all folded.
 
 ---
 
-## Changing what you screen for
+## Results
 
-Click **Criteria** in the app, or edit `criteria.yaml` directly. Write
-requirements the way you'd say them out loud:
+Measured on a 12-case test set — six real CVs, three edge cases, three designed
+to fail — with answers written by hand before running anything.
 
-```
-- id: llm_experience
-  description: "Hands-on experience building with large language models"
-  required: true
-```
+| | By hand | Plain ChatGPT | This system |
+|---|---|---|---|
+| **Time per CV** | 3 min 00 s | 25 s | 49 s *(4.6 s unthrottled)* |
+| **Scannable at a glance** | yes | no — a wall of prose | yes |
+| **Evidence traceable to a line** | in your head | no | **yes, checked in code** |
+| **Fabricated evidence** | 0 | not checkable | **0 of 26 quotes** |
+| **Decision + reason recorded** | no | no | **yes** |
+| **Cost per CV** | your evening | — | **$0.0017** |
 
-Vague criteria produce vague assessments. "Good with data" will not work as
-well as "has built and shipped an ETL pipeline in Python".
+**Rubric pass rate: 8/12.** The four failures and their root causes are in
+[`docs/FAILURES.md`](docs/FAILURES.md).
+
+ChatGPT is faster. It also hands back paragraphs you still have to read and
+verify line by line. **Twelve of its answers can't be put side by side. Twelve
+of these can.**
 
 ---
 
-## What it will NOT do
+## What it will not do
 
-- It never rejects a candidate. It recommends; you decide.
-- It doesn't find or source candidates.
-- It doesn't send email or schedule anything.
-- It doesn't write to your ATS.
-- It doesn't rank candidates against each other.
-- It doesn't judge soft skills or culture fit.
+- **It never rejects anyone.** It recommends; you decide.
+- No sourcing, no calendar access, no interview booking.
+- No writes to any applicant tracking system.
+- No ranking candidates against each other.
+- No judging soft skills or culture fit.
 - English CVs only.
-- Scanned or photographed CVs are detected and handed back to you — it will
-  not try to read an image.
+- Scanned or photographed CVs are detected and handed back, not guessed at.
 
----
-
-## When something goes wrong
-
-| Message | What to do |
-|---|---|
-| No readable text — looks like a scan | Ask the candidate for a text PDF, or paste the text in. |
-| This doesn't look like a CV | Check the file — it may be the wrong attachment. |
-| Matches a CV already screened | It's a duplicate. The earlier result stands. |
-| Missing API key | Open `.env`, add your Groq key, restart. |
-| Can't write to the results sheet | Share the sheet with the address shown in the message. |
-| Hit the usage limit | Wait a minute and run again. Finished candidates are saved. |
-| Couldn't confirm the supporting quote | The system wasn't sure the quote was real, so it downgraded it. Check that one yourself. |
-| ⚠️ Text trying to instruct the system | The CV contains an attempt to manipulate screening. It was ignored. **Review this candidate manually.** |
+**It has not been tested for demographic bias.** It reduces *inconsistency*,
+which is one source of unfairness. That is not the same as proving the absence
+of others. Full list in [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md).
 
 ---
 
 ## Data handling
 
-- CVs are processed on your machine. Only the extracted text is sent to the
-  model, over an encrypted connection.
-- Real CVs live in `data/`, which is excluded from version control. They are
-  never committed.
-- The example CVs in `samples/` and the test set in `eval/cases/` are
-  anonymised — names, emails, phone numbers and links replaced.
-- Nothing is used to train any model.
-- To delete everything: remove the `data/` folder.
-
+- Processing is local. Only the extracted text goes to the model, over TLS.
+- Real CVs live in `data/`, excluded from version control.
+- The test CVs in `eval/cases/` are anonymised by a script that verifies its own
+  output against the original and fails if any identifier survives.
+- Nothing is used to train anything. Delete `data/` and nothing is left.
 
 ---
 
-## Running it online (optional)
+## Documentation
 
-**Render** (free): New + → Blueprint → point it at this repo. It reads
-`render.yaml`. Then set these in the dashboard under Environment:
-
-| Variable | Value |
+| | |
 |---|---|
-| `GROQ_API_KEY` | your Groq key |
-| `SMTP_USER` | your Gmail address |
-| `SMTP_PASSWORD` | your Gmail **App Password** (16 characters, no spaces) |
+| [`WHY-THIS-PROJECT.md`](docs/WHY-THIS-PROJECT.md) | Why this problem, and why verification rather than generation |
+| [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) | The nine stages and the decisions behind them |
+| [`FAILURES.md`](docs/FAILURES.md) | 11 defects with root causes and regressions |
+| [`LIMITATIONS.md`](docs/LIMITATIONS.md) | What it cannot do, stated plainly |
+| [`EVALUATION.md`](docs/EVALUATION.md) | Test set, rubric, three-arm baseline |
+| [`RUNBOOK.md`](docs/RUNBOOK.md) | For whoever maintains it |
+| [`CODE-MAP.md`](docs/CODE-MAP.md) | Where everything lives |
 
-You get a URL like `cv-screening.onrender.com`. **There is no login** — anyone
-with the link can open it and screen a CV. That is intentional, so someone can
-try the system without being given credentials.
+---
 
-### What that means, and what bounds it
+## Running it online
 
-An open instance can send interview invitations **from the account in
-`SMTP_USER`**. Two limits apply:
+Deploy on [Render](https://render.com): New → Blueprint → point it at this repo.
+It reads `render.yaml`. Set `GROQ_API_KEY` in the dashboard, plus `SMTP_USER`,
+`SMTP_PASSWORD` and `ALLOW_EMAIL=1` if you want it to send invitations.
 
-- **Sending is off unless `ALLOW_EMAIL=1` is set.** A forgotten variable means
-  the app drafts invitations and logs them, but sends nothing.
-- **`MAX_SENDS_PER_HOUR` caps sending** (default 10). Well above normal use for
-  one reviewer, well below anything that looks like spam.
+There is no login, so anyone with the link can use it — deliberate, so it can be
+tried without credentials. Remove `ALLOW_EMAIL` and it drafts invitations without
+sending them. The free tier sleeps after ~15 minutes idle, so the first request
+takes about 30 seconds to wake.
 
-The existing gates still apply on every message: GREAT FIT only, the address
-must come from the CV itself, two explicit clicks, and one invitation per
-candidate.
+---
 
-If you would rather the public version never send mail at all, remove
-`ALLOW_EMAIL` from the environment. Everything else works unchanged.
-
-### Two other things to know
-
-- **The free tier sleeps after ~15 minutes idle.** The first request after a
-  quiet period takes about 30 seconds to wake up.
-- **The run log resets when the instance restarts**, because the free tier has
-  no persistent disk. For day-to-day use, run it locally.
+**Built with** Python · FastAPI · LangGraph · Groq (`openai/gpt-oss-120b`) ·
+SQLite · vanilla JS, no build step.

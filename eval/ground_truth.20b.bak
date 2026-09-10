@@ -5,10 +5,10 @@
     "verified_by_human": false,
     "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
     "expected_error_code": null,
-    "expected_verdict": "MEDIUM_FIT",
+    "expected_verdict": "LOW_FIT",
     "expected_status": {
       "skill_python": "MET",
-      "skill_langchain": "NOT_STATED",
+      "skill_langchain": "NOT_MET",
       "skill_rag": "MET",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
@@ -16,13 +16,9 @@
     "expected_flags": [
       "DUPLICATE",
       "DUPLICATE_PERSON",
+      "MISSING_EVIDENCE",
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "skill_python": "Built and deployed a document question-answering system in Python using retrieval-augmented generation over an internal knowledge base.",
-      "skill_rag": "Built and deployed a document question-answering system in Python using retrieval-augmented generation over an internal knowledge base.",
-      "location": "Pune, India"
-    }
+    ]
   },
   "E2_overlapping_roles": {
     "file": "E2_overlapping_roles.txt",
@@ -30,10 +26,10 @@
     "verified_by_human": false,
     "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
     "expected_error_code": null,
-    "expected_verdict": "LOW_FIT",
+    "expected_verdict": "MEDIUM_FIT",
     "expected_status": {
       "skill_python": "MET",
-      "skill_langchain": "NOT_MET",
+      "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
@@ -42,12 +38,7 @@
       "DUPLICATE",
       "DUPLICATE_PERSON",
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "skill_python": "Built LLM-powered agents in Python for customer triage.",
-      "skill_langchain": "Python, LangChain, OpenAI API, Pinecone, GCP",
-      "location": "Bengaluru, India"
-    }
+    ]
   },
   "E3_keyword_only_llm": {
     "file": "E3_keyword_only_llm.txt",
@@ -67,10 +58,7 @@
       "DUPLICATE",
       "DUPLICATE_PERSON",
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "location": "Hyderabad, India"
-    }
+    ]
   },
   "F1_scanned": {
     "file": "F1_scanned.txt",
@@ -86,8 +74,7 @@
       "skill_fastapi": null,
       "location": null
     },
-    "expected_flags": [],
-    "evidence": {}
+    "expected_flags": []
   },
   "F2_not_a_cv": {
     "file": "F2_not_a_cv.txt",
@@ -103,8 +90,7 @@
       "skill_fastapi": null,
       "location": null
     },
-    "expected_flags": [],
-    "evidence": {}
+    "expected_flags": []
   },
   "F3_injection": {
     "file": "F3_injection.txt",
@@ -118,15 +104,14 @@
       "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
-      "location": "NOT_STATED"
+      "location": "NOT_MET"
     },
     "expected_flags": [
       "DUPLICATE",
       "DUPLICATE_PERSON",
       "MISSING_FIELD",
       "POSSIBLE_INJECTION"
-    ],
-    "evidence": {}
+    ]
   },
   "R1_priya": {
     "file": "R1_priya.txt",
@@ -134,23 +119,17 @@
     "verified_by_human": false,
     "note": "CHECK EVERY FIELD BELOW AGAINST THE CV, THEN SET verified_by_human TO true",
     "expected_error_code": null,
-    "expected_verdict": "LOW_FIT",
+    "expected_verdict": "MEDIUM_FIT",
     "expected_status": {
       "skill_python": "MET",
       "skill_langchain": "MET",
-      "skill_rag": "NOT_STATED",
-      "skill_fastapi": "NOT_STATED",
+      "skill_rag": "MET",
+      "skill_fastapi": "MET",
       "location": "MET"
     },
     "expected_flags": [
-      "UNVERIFIED_EVIDENCE",
       "WEAK_EVIDENCE"
-    ],
-    "evidence": {
-      "skill_python": "LiveKit, Tavus, OpenAI GPT-4o, Deepgram, Rime, Python Live Link",
-      "skill_langchain": "Built AI agents with n8n, LangChain, OpenAI for WhatsApp, LinkedIn, and lead workflows.",
-      "location": "Noida, India"
-    }
+    ]
   },
   "R2_arjun": {
     "file": "R2_arjun.txt",
@@ -168,12 +147,7 @@
     },
     "expected_flags": [
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "skill_python": "Languages: Python, C/C++, HTML/CSS, JavaScript",
-      "skill_langchain": "Languages: Python, C/C++, HTML/CSS, JavaScript",
-      "location": "ABES Engineering College Ghaziabad, Uttar Pradesh"
-    }
+    ]
   },
   "R3_meera": {
     "file": "R3_meera.txt",
@@ -191,10 +165,7 @@
     },
     "expected_flags": [
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "location": "Ghaziabad, Uttar Pradesh"
-    }
+    ]
   },
   "R4_rohan": {
     "file": "R4_rohan.txt",
@@ -204,20 +175,15 @@
     "expected_error_code": null,
     "expected_verdict": "LOW_FIT",
     "expected_status": {
-      "skill_python": "NOT_MET",
-      "skill_langchain": "NOT_MET",
+      "skill_python": "NOT_STATED",
+      "skill_langchain": "NOT_STATED",
       "skill_rag": "NOT_STATED",
       "skill_fastapi": "NOT_STATED",
       "location": "MET"
     },
     "expected_flags": [
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "skill_python": "Languages: C/C++, Python, Java, Kotlin, Dart, Agentic AI (Learning)",
-      "skill_langchain": "Frameworks: Flutter, Jetpack Compose, Spring Boot, Android SDK, Provider",
-      "location": "Ghaziabad, Uttar Pradesh"
-    }
+    ]
   },
   "R5_anaya": {
     "file": "R5_anaya.txt",
@@ -235,10 +201,7 @@
     },
     "expected_flags": [
       "MISSING_FIELD"
-    ],
-    "evidence": {
-      "location": "Permanent Address: 15/D, Kedar Nath Das Lane Kolkata \u2013 700 030 West Bengal, India."
-    }
+    ]
   },
   "R6_kabir": {
     "file": "R6_kabir.txt",
@@ -254,15 +217,6 @@
       "skill_fastapi": "MET",
       "location": "MET"
     },
-    "expected_flags": [
-      "WEAK_EVIDENCE"
-    ],
-    "evidence": {
-      "skill_python": "AI Chatbot for Developer Documentation Assistance | Python, ChromaDB, n8n, Ngrok, Streamlit June 2025",
-      "skill_langchain": "Worked on an AI-powered Interview Agent using LangChain, Gemini CLI, and Claude.",
-      "skill_rag": "Built RAG pipelines and integrated LLMs for dynamic question answering.",
-      "skill_fastapi": "Developed an AI-powered Slack chatbot using FastAPI, LlamaIndex, and ChromaDB to answer developer documentation queries with context-aware responses.",
-      "location": "Ghaziabad, Uttar Pradesh"
-    }
+    "expected_flags": []
   }
 }

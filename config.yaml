@@ -1,7 +1,7 @@
 # Non-secret settings. Safe to commit and share.
 
-model: "openai/gpt-oss-20b"         # 120b daily budget exhausted; 20b has its own
-fallback_model: "qwen/qwen3.8-27b"
+model: "openai/gpt-oss-120b"        # daily quota reset; the model to ship
+fallback_model: "openai/gpt-oss-20b"   # separate daily budget if 120b runs out
 
 # Purpose-built prompt-injection classifier (Groq). Second layer for case F3,
 # alongside the regex scan. Leave blank to use the regex only.

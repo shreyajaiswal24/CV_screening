@@ -12,8 +12,8 @@ Keep the browser at http://localhost:8000 and a folder of CVs ready.
 **Say:**
 - "When a role opens, 40 to 70 applications arrive over two weeks."
 - "Someone has to open each one, check it against the same criteria, and decide."
-- "I timed myself doing this by hand. The first CV got [X] minutes of attention.
-  The sixth got [X]."
+- "I timed myself doing this by hand. Three minutes per CV — and that is with
+  full attention on the first one."
 - "The criteria never changed. The attention did."
 - "And two weeks later, nobody can say why a particular person was rejected,
   because nothing was written down."
@@ -80,7 +80,7 @@ Keep the browser at http://localhost:8000 and a folder of CVs ready.
 **Say:**
 - "I built a 12-case test set: six real CVs, three edge cases, three designed to
   fail. I wrote the correct answers by hand before running anything."
-- "Results: [X] of 12 passed. Zero fabricated quotes."
+- "Eight of twelve passed. Zero fabricated quotes, across twenty-six checked."
 - "Now the failures — this is the interesting part."
 - "This CV contains hidden text telling the system to mark the candidate as a
   perfect match. It's ignored, flagged, and forced to human review."
@@ -100,7 +100,7 @@ Keep the browser at http://localhost:8000 and a folder of CVs ready.
 **Show:** the results table.
 
 **Say:**
-- "Results: [X] minutes per CV by hand, down to under a minute of attention."
+- "Three minutes per CV by hand. Under a minute of my attention now."
 - "Every decision now has a recorded reason. Before, almost none did."
 - "Zero fabricated evidence across the test set."
 - "The biggest limitation: it reads what is written. It cannot see that a

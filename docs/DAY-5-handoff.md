@@ -137,7 +137,7 @@ The choice of problem and user. The decision that verification must be determini
 
 ### How AI output was verified
 
-All twelve cases were hand-labelled before the system was built, so the ground truth was never model-generated. Every generated function was read before it was used. Where a model was used to grade at scale, its agreement with my own hand labels was measured at [X] of 12 and is reported as a number — the judge was never treated as ground truth.
+The rubric and the twelve test cases were written before any results existed. The ground-truth answers were seeded from a system run to save typing and then **verified case by case against each CV by hand** - the harness refuses to score any case a human has not confirmed, so a system agreeing with itself cannot produce a passing number. Five judgments across three cases were overruled during that review, and those corrections became the failure analysis. Every generated function was read before it was used. Where a model was used to grade at scale, its agreement with my own hand labels was measured at [X] of 12 and is reported as a number — the judge was never treated as ground truth.
 
 ### Results rejected or corrected
 

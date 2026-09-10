@@ -18,6 +18,7 @@ exactly the fabrication risk the rest of this system exists to remove.
 """
 from __future__ import annotations
 
+import os
 import re
 import smtplib
 from datetime import datetime, timezone
@@ -126,6 +127,13 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
         blocked = ("No email address was found in this CV. The system will not guess "
                    "one - add it by hand if you have it.")
 
+    # A public URL has no login, so anyone who opens it could otherwise send
+    # mail from the operator's account. A hosted instance is ALWAYS dry-run,
+    # whatever config.yaml says. This cannot be overridden by configuration -
+    # only by running the app on your own machine.
+    hosted = bool(os.environ.get("RENDER") or os.environ.get("DEMO_MODE")
+                  or os.environ.get("SPACE_ID") or os.environ.get("RAILWAY_ENVIRONMENT"))
+
     return EmailDraft(
         to=address if address_ok else None,
         subject=cfg.get("subject", "Interview - {role} at {company}").format(
@@ -134,7 +142,7 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
         body=body,
         can_send=blocked is None,
         blocked_reason=blocked,
-        dry_run=not bool(cfg.get("send_email", False)),
+        dry_run=hosted or not bool(cfg.get("send_email", False)),
     )
 
 

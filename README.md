@@ -134,3 +134,32 @@ well as "has built and shipped an ETL pipeline in Python".
   anonymised — names, emails, phone numbers and links replaced.
 - Nothing is used to train any model.
 - To delete everything: remove the `data/` folder.
+
+
+---
+
+## Running it online (optional)
+
+The app can be deployed so an evaluator can try it without installing anything.
+
+**Render** (free): New → Web Service → connect this repo. It reads `render.yaml`
+automatically. Add one environment variable in the dashboard:
+
+```
+GROQ_API_KEY = your key
+```
+
+Then Deploy. You get a URL like `cv-screening.onrender.com`.
+
+**Two things to know about the hosted version:**
+
+1. **It can never send email.** A public URL has no login, so anyone who opened
+   it could otherwise send mail from the operator's Gmail account. Deployed
+   instances are permanently dry-run — invitations are drafted and logged, never
+   sent. This is enforced in code and cannot be switched on by configuration.
+   To send real invitations, run it on your own machine.
+
+2. **The free tier sleeps after ~15 minutes idle**, so the first request after a
+   quiet period takes about 30 seconds to wake up. The run log also resets when
+   the instance restarts, because the free tier has no persistent disk. For real
+   use, run it locally or add a paid disk.

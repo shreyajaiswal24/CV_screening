@@ -61,7 +61,10 @@ def health():
     except Exception as e:
         problems.append(_clean_error(e))
         role, n = "", 0
+    import os
+    hosted = bool(os.environ.get("RENDER") or os.environ.get("DEMO_MODE"))
     return {"ok": not problems, "problems": problems, "role": role,
+            "demo_mode": hosted,
             "criteria_count": n, "model": SETTINGS["model"],
             "tracing": tracing_enabled(),
             "drive_configured": bool(SETTINGS.get("drive_folder_id")),

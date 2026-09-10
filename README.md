@@ -190,7 +190,7 @@ to fail — with answers written by hand before running anything.
 | **Cost per CV** | your evening | — | **$0.0017** |
 
 **Rubric pass rate: 8/12.** The four failures and their root causes are in
-[`docs/FAILURES.md`](docs/FAILURES.md).
+[the failure analysis](docs/Case-study/failure%20analysis.docx).
 
 ChatGPT is faster. It also hands back paragraphs you still have to read and
 verify line by line. **Twelve of its answers can't be put side by side. Twelve
@@ -210,7 +210,7 @@ of these can.**
 
 **It has not been tested for demographic bias.** It reduces *inconsistency*,
 which is one source of unfairness. That is not the same as proving the absence
-of others. Full list in [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md).
+of others. Full list in [the limitations document](docs/Case-study/limitations.docx).
 
 ---
 
@@ -226,15 +226,32 @@ of others. Full list in [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md).
 
 ## Documentation
 
+### The case study
+
 | | |
 |---|---|
-| [`WHY-THIS-PROJECT.md`](docs/WHY-THIS-PROJECT.md) | Why this problem, and why verification rather than generation |
-| [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) | The nine stages and the decisions behind them |
-| [`FAILURES.md`](docs/FAILURES.md) | 11 defects with root causes and regressions |
-| [`LIMITATIONS.md`](docs/LIMITATIONS.md) | What it cannot do, stated plainly |
-| [`EVALUATION.md`](docs/EVALUATION.md) | Test set, rubric, three-arm baseline |
-| [`RUNBOOK.md`](docs/RUNBOOK.md) | For whoever maintains it |
-| [`CODE-MAP.md`](docs/CODE-MAP.md) | Where everything lives |
+| [Why this project](docs/Case-study/Why%20this%20Project.docx) | Why this problem, and why verification rather than generation |
+| [Architecture](docs/Case-study/Architecture.docx) | The nine stages and the decisions behind them |
+| [Failure analysis](docs/Case-study/failure%20analysis.docx) | 11 defects with root causes and regressions |
+| [Limitations](docs/Case-study/limitations.docx) | What it cannot do, stated plainly |
+| [Evaluation](docs/Case-study/evaluation.docx) | Test set, rubric, three-arm baseline |
+| [Data flow](docs/Case-study/data%20flow.docx) | What leaves the machine, what is stored |
+| [Code map](docs/Case-study/code%20map.docx) | Where everything lives |
+| [README and runbook](docs/Case-study/readme%20and%20runbook.docx) | For whoever maintains it |
+| [Demo script](docs/Case-study/demo%20script.docx) | The five-minute walkthrough |
+
+### The five-day record
+
+| | |
+|---|---|
+| [Day 1 — Discover, map, baseline](docs/All%205%20Days/DAY-1-discovery.md) | User, workflow, evidence of pain, baseline, test set |
+| [Day 2 — Design](docs/All%205%20Days/Day%202-%20design.docx) | Architecture, data contracts, rubric |
+| [Day 3 — Build](docs/All%205%20Days/Day%203-%20build.docx) | The working core, integrations, first user run |
+| [Day 4 — Evaluate](docs/All%205%20Days/Day%204%20-%20evaluate.docx) | Results, failures, hardening, regression |
+| [Day 5 — Handoff](docs/All%205%20Days/Day%205%20-%20handoff.docx) | Case study, metrics, next iteration |
+
+Word documents download rather than preview on GitHub. Day 1 is markdown and
+reads in the browser.
 
 ---
 

@@ -47,21 +47,18 @@ paragraphs of prose with no fixed shape. The reviewer's note was that it was
 *"too lengthy to read"*. Twelve of those cannot be put side by side and
 compared, and none of them survives as a record. Speed of generation is not the
 bottleneck; speed to a decision you can trust is.
-| Criterion accuracy (of 48 judgments) | [X] | [X] | [X] | [X] |
-| **Fabricated evidence** | 0 | [X] | [X] | **0** |
-| Gaps flagged rather than filled | [X] | [X] | [X] | [X] |
-| Median time per CV | [X] min | [X] min | [X] s | [X] s |
-| Total time for 12 CVs | [X] | [X] | [X] | [X] |
-| Decisions with a recorded reason | [X]/12 | 0/12 | 12/12 | 12/12 |
-| Consistency (same CV screened twice) | [X] | [X] | identical | identical |
-| Cost per CV | labour | [X] | [X] | [X] |
-| Human edits per output | n/a | [X] | [X] | [X] |
 
 **What the comparison actually shows.**
 
 Manual screening remains the most sensitive to context — a person notices that three previous employers all failed, and the system cannot. Plain ChatGPT is fast at producing an assessment but has no consistent shape, no verification, and no memory of the criteria between candidates. Its defining failure is that it fills gaps: asked about a candidate whose CV never states a location, it reported the requirement as met.
 
-SIFT wins on speed, consistency, evidence and documentation, and loses to a careful human on nuance. That trade is stated deliberately rather than hidden.
+**SIFT is slower than ChatGPT and this is reported as measured** — 49 s against
+25 s. But the 25 s produced several paragraphs of prose that still had to be
+read and checked line by line against the CV. The honest metric is time to a
+decision you can act on: 3 minutes by hand, under a minute with the system.
+
+SIFT wins on consistency, evidence and documentation, and loses to a careful
+human on nuance. That trade is stated deliberately rather than hidden.
 
 ---
 
@@ -69,13 +66,13 @@ SIFT wins on speed, consistency, evidence and documentation, and loses to a care
 
 | Class | Result |
 |---|---|
-| **Quality** | [X]/12 cases passing; [X]% criterion accuracy; 0 fabricated quotes; [X]% of known exceptions caught |
-| **Speed** | [X]s median per CV, [X]s at the 95th percentile; [X] minutes for a 40-CV batch |
-| **Cost** | $[X] per CV; $[X] for a 60-candidate role |
-| **Human intervention** | [X]% of outputs approved unedited; [X] edits per output; [X]% routed to REVIEW |
-| **Reliability** | [X]% of quotes matched exactly, [X]% after normalisation, [X]% failed verification; retry rate [X]% |
+| **Quality** | **8/12 cases passing (67%)**; **0 fabricated quotes across 26**; schema valid 12/12; verdict correct 12/12 |
+| **Speed** | **4.6 s** model time; **60.7 s p50 / 63.4 s p95** under free-tier throttling |
+| **Cost** | **$0.0017 per CV**; ~**$0.10** for a 60-candidate role; $0 actual on the free tier |
+| **Human intervention** | **8/12 (67%) needed no edit**; 5 criteria flagged for review across the set |
+| **Reliability** | **81% exact, 8% normalised, 12% despaced, 0% failed**; 0 retries needed |
 
-**The most meaningful of these is human intervention.** [X] of 12 outputs were approved with no edits, and every output that required editing was a REVIEW case where the CV genuinely did not state the information. That describes the user's actual day better than any accuracy percentage.
+**The most meaningful of these is human intervention.** 8 of 12 outputs were approved with no edits, and every output that required editing was a REVIEW case where the CV genuinely did not state the information. That describes the user's actual day better than any accuracy percentage.
 
 ---
 

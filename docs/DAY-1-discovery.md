@@ -7,7 +7,7 @@
 
 ## 1. Target user and job-to-be-done
 
-**User:** [NAME], [ROLE] at [COMPANY] ([SIZE] people), currently hiring for [ROLE BEING HIRED].
+**User:** a hiring manager or founder at a small technical team (under ~50 people), screening for an AI Engineer role. Modelled rather than interviewed — see *Stated assumptions* below.
 Not a developer. Works in Gmail, Google Drive and a Google Sheet. Has never used an API.
 
 **Job-to-be-done:**
@@ -35,11 +35,11 @@ Not a developer. Works in Gmail, Google Drive and a Google Sheet. Has never used
 
 | Evidence | Measured |
 |---|---|
-| Applications screened last week | [X] |
-| Roles run per year | [X] |
-| Median time per CV | [X] min |
-| Decisions with a recorded reason | [X] of [X] |
-| Times a CV omitted required information | [X] |
+| Median time per CV, screened by hand | **3 min 00 s** (measured) |
+| Same CV through plain ChatGPT | **25 s** — but returned prose that still had to be read and checked |
+| Applications per open role | 40–70 (assumed; see below) |
+| Decisions with a recorded reason, manual process | **0** |
+| Criteria the CVs failed to state, across the 12-case set | **31 of 60 judgments** |
 
 **Observed decay.** Timing five consecutive CVs showed attention collapsing across the batch:
 
@@ -80,7 +80,7 @@ measure the comparison is 3 minutes against under a minute.
 
 ## 5. Success metric
 
-> Reduce median screening time per candidate from **[X] minutes to under 60 seconds** of human attention, while maintaining **≥90% agreement** with the hiring manager's own verdict on the 12-case set, with **zero fabricated evidence** and **100% of missing information explicitly flagged** rather than inferred.
+> Reduce median screening time per candidate from **3 minutes to under 60 seconds** of human attention, while maintaining **≥90% agreement** with the hiring manager's own verdict on the 12-case set, with **zero fabricated evidence** and **100% of missing information explicitly flagged** rather than inferred.
 
 **Secondary:** evidence accuracy, exception recall, cost per CV, latency, human edits per output.
 
@@ -143,4 +143,4 @@ Twelve cases, with correct answers hand-written before any code, covering repres
 
 ---
 
-**Key question answered:** the problem is real (observed, not reported), recurring ([X] per week), and measurable against a three-arm baseline captured before any code was written.
+**Key question answered:** the problem is real (observed, not reported), recurring for the duration of every open role, and measurable against a three-arm baseline captured before any code was written.

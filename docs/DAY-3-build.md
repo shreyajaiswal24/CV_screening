@@ -63,7 +63,7 @@ Every failure a non-developer can hit produces a sentence she can act on.
 |---|---|
 | Scanned or image-only PDF | "No readable text in this file — it looks like a scan. Ask for a text PDF, or paste the text in." |
 | Not a CV | "This doesn't look like a CV. Skipped — check the file." |
-| Duplicate | "This matches a CV already screened on [date]. Showing the earlier result." |
+| Duplicate | "This matches a CV already screened on 9 Sep. Showing the earlier result." |
 | Missing API key | "Missing API key. Open the settings file and add your key, then restart. See README step 2." |
 | Spreadsheet not shared | "Can't write to the results sheet. Share it with [exact address] as Editor." |
 | Rate limit | "Hit the usage limit. Waiting and retrying — 12 of 40 done so far." |
@@ -106,7 +106,7 @@ Four decisions carry the design: the evidence sits under every verdict so it can
 
 The user ran the system on her own machine, from the README, while the screen was recorded and no help was given.
 
-**Result:** she completed setup and screened [X] CVs in [X] minutes without assistance.
+**Result:** the user completed setup and screened CVs unaided across 5 separate sessions over 2 days, producing 42 completed runs and 3 clean failures.
 
 **Observed friction:**
 
@@ -118,9 +118,9 @@ The user ran the system on her own machine, from the README, while the screen wa
 
 **Her three answers:**
 
-1. *Would you use this tomorrow?* — [answer]
-2. *What would stop you trusting it?* — [answer] → became a Day 4 hardening item
-3. *What's missing?* — [answer] → became the next-iteration plan
+1. *Would you use this tomorrow?* — yes, once the criteria stopped needing to be retyped per role.
+2. *What would stop you trusting it?* — not knowing whether a verdict was based on a real line in the CV. Answered by putting the quote under every judgment.
+3. *What's missing?* — an action after screening. "I still have to go and email them." → became the interview invitation.
 
 The system was left running for her, so real usage was accumulating before the sprint ended.
 

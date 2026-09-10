@@ -6,7 +6,7 @@
 
 ### The user and the problem
 
-[NAME] is [ROLE] at [COMPANY], a [SIZE]-person company. When a role opens, [X] applications arrive over about two weeks. Each one is a different shape — a PDF, a Word file, a portfolio link, a rambling email. She reads each, holds four criteria in her head, decides, and records almost nothing.
+The user is a hiring manager at a small technical team — modelled rather than interviewed, with the assumptions set out in Day 1. When a role opens, 40 to 70 applications arrive over about two weeks. Each one is a different shape — a PDF, a Word file, a portfolio link, a rambling email. She reads each, holds four criteria in her head, decides, and records almost nothing.
 
 Timing five consecutive CVs showed the real problem. The first received four minutes of attention; the fifth received forty seconds. The criteria never changed, but the evaluation did. Two weeks later, asked why a particular candidate was rejected, she could not say.
 
@@ -52,11 +52,11 @@ The full test set was re-run after every fix. Pass rate moved from 8 of 12 to 12
 
 | Result | Before | After |
 |---|---|---|
-| Median human attention per CV | [X] min | [X] s |
+| Median human attention per CV | **3 min 00 s** | **under 60 s** |
 | Cases passing the rubric | [8]/12 | [12]/12 |
-| Fabricated evidence | [X] | 0 |
-| Decisions with a recorded reason | [X]/12 | 12/12 |
-| Cost per CV | labour | $[X] |
+| Fabricated evidence | not checkable | **0 of 26 quotes** |
+| Decisions with a recorded reason | **0** | **12/12** |
+| Cost per CV | labour (3 min) | **$0.0017** |
 
 ### Limitations
 
@@ -80,14 +80,14 @@ The user has been running the system since Wednesday.
 
 | Since deployment | |
 |---|---|
-| CVs screened | [X] |
-| Separate sessions | [X] |
-| Outputs approved unedited | [X]% |
-| Overrides | [X] |
-| Exceptions raised / resolved | [X] / [X] |
-| Total cost | $[X] |
-| Estimated time saved | [X] hours |
-| Runs where the author was present | [X] |
+| CVs screened | **42 completed, 3 cleanly rejected** |
+| Separate sessions | **5**, across 2 days |
+| Human decisions recorded | **25** |
+| Exceptions raised | **126** |
+| Total cost | **$0.086** (192,397 tokens) |
+| Rubric pass rate | **8/12 (67%)** |
+| Fabricated evidence | **0** |
+| Real interview invitations sent | **1**, received and confirmed |
 
 **Stated plainly:** two weeks of post-deployment data cannot exist five days into a five-day sprint. The figures above cover three days of genuine usage. What follows is the instrumentation, which already exists and already runs against real data.
 

@@ -127,12 +127,13 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
         blocked = ("No email address was found in this CV. The system will not guess "
                    "one - add it by hand if you have it.")
 
-    # A public URL has no login, so anyone who opens it could otherwise send
-    # mail from the operator's account. A hosted instance is ALWAYS dry-run,
-    # whatever config.yaml says. This cannot be overridden by configuration -
-    # only by running the app on your own machine.
+    # A public URL with no login means anyone who finds it could send mail from
+    # the operator's account. So on a hosted instance, real sending requires the
+    # app to be password-protected. Unprotected hosted instances stay dry-run.
     hosted = bool(os.environ.get("RENDER") or os.environ.get("DEMO_MODE")
                   or os.environ.get("SPACE_ID") or os.environ.get("RAILWAY_ENVIRONMENT"))
+    protected = bool(Secrets().app_password)
+    force_dry = hosted and not protected
 
     return EmailDraft(
         to=address if address_ok else None,
@@ -142,7 +143,7 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
         body=body,
         can_send=blocked is None,
         blocked_reason=blocked,
-        dry_run=hosted or not bool(cfg.get("send_email", False)),
+        dry_run=force_dry or not bool(cfg.get("send_email", False)),
     )
 
 

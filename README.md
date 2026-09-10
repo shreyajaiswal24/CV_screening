@@ -140,26 +140,35 @@ well as "has built and shipped an ETL pipeline in Python".
 
 ## Running it online (optional)
 
-The app can be deployed so an evaluator can try it without installing anything.
+The app can be deployed so it is reachable from anywhere.
 
 **Render** (free): New → Web Service → connect this repo. It reads `render.yaml`
-automatically. Add one environment variable in the dashboard:
+automatically. Then set these in the dashboard under Environment:
 
-```
-GROQ_API_KEY = your key
-```
+| Variable | Value |
+|---|---|
+| `GROQ_API_KEY` | your Groq key |
+| `APP_PASSWORD` | **required** — a password only you know |
+| `SMTP_USER` | your Gmail address |
+| `SMTP_PASSWORD` | your Gmail **App Password** (16 characters, no spaces) |
 
-Then Deploy. You get a URL like `cv-screening.onrender.com`.
+You get a URL like `cv-screening.onrender.com`, which asks for the password
+before it shows anything.
 
-**Two things to know about the hosted version:**
+### Why the password is required
 
-1. **It can never send email.** A public URL has no login, so anyone who opened
-   it could otherwise send mail from the operator's Gmail account. Deployed
-   instances are permanently dry-run — invitations are drafted and logged, never
-   sent. This is enforced in code and cannot be switched on by configuration.
-   To send real invitations, run it on your own machine.
+The deployed app sends interview invitations **from your own Gmail account**.
+Without a password, anyone who found the URL could upload a CV with any address
+in it and send mail as you — which is a spam vector on your personal account.
 
-2. **The free tier sleeps after ~15 minutes idle**, so the first request after a
-   quiet period takes about 30 seconds to wake up. The run log also resets when
-   the instance restarts, because the free tier has no persistent disk. For real
-   use, run it locally or add a paid disk.
+So the rule is enforced in code: **a hosted instance without `APP_PASSWORD` stays
+in dry-run and will not send anything.** Set the password, and real sending works
+exactly as it does locally — GREAT FIT only, address taken from the CV, and two
+explicit clicks.
+
+### Two other things to know
+
+- **The free tier sleeps after ~15 minutes idle.** The first request after a
+  quiet period takes about 30 seconds to wake up.
+- **The run log resets when the instance restarts**, because the free tier has
+  no persistent disk. For real day-to-day use, run it locally or add a paid disk.

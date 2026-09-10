@@ -28,6 +28,7 @@ class Secrets(BaseSettings):
     smtp_port: int = 587
     smtp_user: str = ""
     smtp_password: str = ""
+    app_password: str = ""      # set this to put a login on the app
 
     model_config = SettingsConfigDict(
         env_file=ROOT / ".env", env_file_encoding="utf-8", extra="ignore"

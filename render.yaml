@@ -1,7 +1,11 @@
 # Render deployment. Create a Web Service from this repo and Render reads this.
 #
+# This instance CAN send real interview invitations from the operator's Gmail,
+# which is why APP_PASSWORD is required. Without it the app would be open to
+# anyone who found the URL, and they could send mail from that account.
+#
 # The free tier sleeps after ~15 minutes idle, so the first request after a
-# quiet period takes ~30 seconds to wake. Mention that if you share the link.
+# quiet period takes ~30 seconds to wake.
 services:
   - type: web
     name: cv-screening
@@ -10,9 +14,18 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn screening.api:app --host 0.0.0.0 --port $PORT
     envVars:
+      # --- all of these are set in the Render dashboard, never committed ---
       - key: GROQ_API_KEY
-        sync: false          # set this in the Render dashboard, never in the repo
-      - key: DEMO_MODE
-        value: "1"           # forces dry-run email - a public URL must not send mail
+        sync: false
+      - key: APP_PASSWORD          # REQUIRED - without it, email stays dry-run
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER             # your gmail address
+        sync: false
+      - key: SMTP_PASSWORD         # gmail App Password, 16 chars, no spaces
+        sync: false
       - key: PYTHON_VERSION
         value: "3.11"

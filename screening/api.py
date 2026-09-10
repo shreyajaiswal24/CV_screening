@@ -19,6 +19,67 @@ from screening.graph import process_one
 from screening.observability import enabled as tracing_enabled
 
 app = FastAPI(title="CV Screening", docs_url="/api/docs")
+
+
+# --------------------------------------------------------------- access
+# A deployed instance can send email from the operator's own account, so it must
+# not be open to whoever finds the URL. Setting APP_PASSWORD puts a login on the
+# whole app. Left unset, the app runs open - which is fine on your own machine,
+# and which is why a hosted instance without a password stays dry-run.
+
+import hmac
+import secrets as _secrets
+from fastapi import Request, Response
+
+_SESSIONS: set[str] = set()
+COOKIE = "cvs_session"
+
+
+def _password() -> str:
+    try:
+        return Secrets().app_password
+    except Exception:
+        return ""
+
+
+def _authed(request: Request) -> bool:
+    if not _password():
+        return True                     # no password configured - app is open
+    return request.cookies.get(COOKIE, "") in _SESSIONS
+
+
+@app.middleware("http")
+async def _require_login(request: Request, call_next):
+    open_paths = ("/login", "/api/login", "/static", "/favicon.ico")
+    if _password() and not request.url.path.startswith(open_paths) and not _authed(request):
+        if request.url.path.startswith("/api/"):
+            return JSONResponse(status_code=401,
+                                content={"error_code": "NOT_LOGGED_IN",
+                                         "error_message": "Please sign in again."})
+        return FileResponse(STATIC / "login.html")
+    return await call_next(request)
+
+
+@app.post("/api/login")
+async def login(request: Request):
+    body = await request.json()
+    given = str(body.get("password", ""))
+    if not _password() or not hmac.compare_digest(given, _password()):
+        raise HTTPException(401, "That password is not correct.")
+    token = _secrets.token_urlsafe(32)
+    _SESSIONS.add(token)
+    resp = JSONResponse({"ok": True})
+    resp.set_cookie(COOKIE, token, httponly=True, samesite="lax",
+                    max_age=60 * 60 * 12, secure=False)
+    return resp
+
+
+@app.post("/api/logout")
+async def logout(request: Request):
+    _SESSIONS.discard(request.cookies.get(COOKIE, ""))
+    resp = JSONResponse({"ok": True})
+    resp.delete_cookie(COOKIE)
+    return resp
 STATIC = ROOT / "static"
 
 

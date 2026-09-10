@@ -19,18 +19,18 @@ from typing import Annotated, Any, Optional, TypedDict
 
 from langgraph.graph import END, StateGraph
 
-from sift import db
-from sift.assess import assess as assess_stage
-from sift.config import SETTINGS, load_criteria
-from sift.decide import decide as decide_stage
-from sift.extract import extract as extract_stage
-from sift.ingest import IngestError, extract_text
-from sift.llm import LLMError, Usage
-from sift.observability import trace_node
-from sift.preflight import preflight as preflight_stage
-from sift.schemas import (Assessment, ExceptionRecord, Profile, RunMeta,
+from screening import db
+from screening.assess import assess as assess_stage
+from screening.config import SETTINGS, load_criteria
+from screening.decide import decide as decide_stage
+from screening.extract import extract as extract_stage
+from screening.ingest import IngestError, extract_text
+from screening.llm import LLMError, Usage
+from screening.observability import trace_node
+from screening.preflight import preflight as preflight_stage
+from screening.schemas import (Assessment, ExceptionRecord, Profile, RunMeta,
                           RunResult, Status, Verdict)
-from sift.verify import verify_batch
+from screening.verify import verify_batch
 
 MAX_REPAIRS = 1
 
@@ -140,7 +140,7 @@ def n_assess(state: State) -> dict:
             text = text  # source is unchanged; the correction goes in the criteria note
         # Criteria marked check=code are resolved deterministically and never
         # sent to the model - a numeric requirement cannot be mis-argued in prose.
-        from sift.filters import resolve_code_criteria
+        from screening.filters import resolve_code_criteria
         computed = resolve_code_criteria(state["profile"], state["criteria"])
         computed_ids = {a.criterion_id for a in computed}
         for_model = [c for c in state["criteria"] if c["id"] not in computed_ids]
@@ -293,7 +293,7 @@ def process_one(file_path: str, criteria_path: str | None = None,
     # Draft the invitation, but never send it. Sending requires two explicit
     # human actions in the interface.
     if not result.error_code and result.assessments:
-        from sift.emailer import build_draft
+        from screening.emailer import build_draft
         try:
             result.email = build_draft(result, cfg["criteria"],
                                        cfg.get("decision_rules", {}))

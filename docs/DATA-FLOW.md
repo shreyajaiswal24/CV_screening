@@ -12,7 +12,7 @@
         ▼
   quote verification (local, no network)
         ▼
-  SQLite  data/sift.db  ──────►  CSV / Google Sheet   (explicit user action)
+  SQLite  data/screening.db  ──────►  CSV / Google Sheet   (explicit user action)
         │
         └───────────────────────►  Gmail SMTP          (explicit user action,
                                                         GREAT FIT only)
@@ -33,7 +33,7 @@ telemetry, no third-party services.
 
 | Path | Contents | In version control |
 |---|---|---|
-| `data/sift.db` | Every run, judgment, exception and human override | no |
+| `data/screening.db` | Every run, judgment, exception and human override | no |
 | `data/real_cvs/` | Real CVs supplied by the user | no |
 | `data/sent_emails.log` | Every invitation, dry-run and real | no |
 | `.env` | API key, SMTP credentials | no (mode 600) |

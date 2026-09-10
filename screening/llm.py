@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 
 from groq import APIConnectionError, APIStatusError, Groq, RateLimitError
 
-from sift.config import SETTINGS, Secrets
+from screening.config import SETTINGS, Secrets
 
 
 class LLMError(Exception):

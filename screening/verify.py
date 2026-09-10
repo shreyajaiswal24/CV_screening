@@ -14,7 +14,7 @@ from __future__ import annotations
 import re
 from difflib import SequenceMatcher
 
-from sift.schemas import Assessment, EvidenceStrength, ExceptionRecord, Status
+from screening.schemas import Assessment, EvidenceStrength, ExceptionRecord, Status
 
 
 def normalise(s: str) -> str:

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import functools
 
-from sift.config import Secrets
+from screening.config import Secrets
 
 _client = None
 _enabled = False

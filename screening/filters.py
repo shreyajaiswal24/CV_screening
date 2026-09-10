@@ -106,7 +106,7 @@ def resolve_code_criteria(profile, criteria: list[dict]):
     Returns a list of Assessment objects the model never sees, so a numeric
     requirement can never be mis-argued in prose.
     """
-    from sift.schemas import Assessment, EvidenceStrength, Status
+    from screening.schemas import Assessment, EvidenceStrength, Status
 
     out = []
     for c in criteria:

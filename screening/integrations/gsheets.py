@@ -9,7 +9,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from sift.config import ROOT, Secrets
+from screening.config import ROOT, Secrets
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets",
           "https://www.googleapis.com/auth/drive.file"]

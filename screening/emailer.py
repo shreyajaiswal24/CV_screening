@@ -24,8 +24,8 @@ from datetime import datetime, timezone
 from email.message import EmailMessage
 from pathlib import Path
 
-from sift.config import ROOT, SETTINGS, Secrets
-from sift.schemas import EmailDraft, RunResult, Verdict
+from screening.config import ROOT, SETTINGS, Secrets
+from screening.schemas import EmailDraft, RunResult, Verdict
 
 TIER_ORDER = {Verdict.LOW_FIT: 0, Verdict.MEDIUM_FIT: 1, Verdict.GREAT_FIT: 2}
 EMAIL_RE = re.compile(r"^[\w.+-]+@[\w-]+\.[\w.]+$")

@@ -13,12 +13,12 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from sift import db
-from sift.config import ROOT, SETTINGS, Secrets, load_criteria, output_dir, windows_path
-from sift.graph import process_one
-from sift.observability import enabled as tracing_enabled
+from screening import db
+from screening.config import ROOT, SETTINGS, Secrets, load_criteria, output_dir, windows_path
+from screening.graph import process_one
+from screening.observability import enabled as tracing_enabled
 
-app = FastAPI(title="SIFT", docs_url="/api/docs")
+app = FastAPI(title="CV Screening", docs_url="/api/docs")
 STATIC = ROOT / "static"
 
 
@@ -33,7 +33,7 @@ async def _unhandled(request, exc):
     return JSONResponse(status_code=500, content={
         "error_code": "UNEXPECTED_ERROR",
         "error_message": f"Something went wrong: {exc}. "
-                         f"The details are in the terminal window where you started SIFT.",
+                         f"The details are in the terminal window where you started the app.",
     })
 
 
@@ -86,7 +86,7 @@ class CriteriaPayload(BaseModel):
 @app.put("/api/criteria")
 def put_criteria(payload: CriteriaPayload):
     """Lets the user change what she is screening for, without a developer."""
-    from sift.filters import compile_criteria
+    from screening.filters import compile_criteria
 
     data = payload.model_dump()
     if payload.filters:
@@ -103,7 +103,7 @@ def put_criteria(payload: CriteriaPayload):
         shutil.copy(path, backup)
     out = payload.model_dump()
     with open(path, "w") as f:
-        f.write("# Written by the SIFT criteria editor. 'filters' is the source of\n"
+        f.write("# Written by the CV Screening criteria editor. 'filters' is the source of\n"
                 "# truth; 'criteria' below is generated from it.\n")
         yaml.safe_dump(out, f, sort_keys=False, allow_unicode=True)
     return {"ok": True, "saved_to": str(path), "criteria_count": len(out["criteria"])}
@@ -132,7 +132,7 @@ def scan_drive():
     if not folder:
         raise HTTPException(400, "No Google Drive folder is configured. "
                                  "Add drive_folder_id to config.yaml, or upload files directly.")
-    from sift.integrations.gdrive import list_cvs
+    from screening.integrations.gdrive import list_cvs
     return {"files": list_cvs(folder, db.seen_hashes())}
 
 
@@ -143,7 +143,7 @@ class DriveRun(BaseModel):
 
 @app.post("/api/screen-drive")
 def screen_drive(item: DriveRun):
-    from sift.integrations.gdrive import download
+    from screening.integrations.gdrive import download
     path = download(item.file_id, item.name)
     try:
         result = process_one(str(path), original_name=item.name)
@@ -188,7 +188,7 @@ def send_email(payload: SendEmail):
     is deliberately awkward: one candidate at a time, explicit confirm, and a
     refusal to send twice for the same run.
     """
-    from sift.emailer import build_draft, send as do_send
+    from screening.emailer import build_draft, send as do_send
 
     if not payload.confirm:
         raise HTTPException(400, "Nothing was sent - the confirm flag was not set.")
@@ -200,7 +200,7 @@ def send_email(payload: SendEmail):
         raise HTTPException(409, "An invitation was already sent to this candidate. "
                                  "Sending a second one would be a duplicate.")
 
-    from sift.schemas import RunResult
+    from screening.schemas import RunResult
     result = RunResult.model_validate(stored)
     cfg = load_criteria()
     draft = build_draft(result, cfg["criteria"], cfg.get("decision_rules", {}))
@@ -248,11 +248,11 @@ def export(payload: ExportPayload):
         raise HTTPException(400, "Nothing to export.")
     if not sheet:
         out = output_dir() / "shortlist.csv"
-        from sift.integrations.gsheets import write_csv
+        from screening.integrations.gsheets import write_csv
         _, written, skipped = write_csv(rows, out)
         return {"ok": True, "destination": "csv", "path": windows_path(out),
                 "rows": written, "skipped": skipped}
-    from sift.integrations.gsheets import append_rows
+    from screening.integrations.gsheets import append_rows
     written, skipped = append_rows(sheet, rows)
     return {"ok": True, "destination": "google_sheet",
             "url": f"https://docs.google.com/spreadsheets/d/{sheet}",

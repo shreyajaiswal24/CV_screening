@@ -10,7 +10,7 @@ makes the pile sortable at a glance.
 """
 from __future__ import annotations
 
-from sift.schemas import (Assessment, EvidenceStrength, ExceptionRecord,
+from screening.schemas import (Assessment, EvidenceStrength, ExceptionRecord,
                           Status, Verdict)
 
 TIER_LABEL = {

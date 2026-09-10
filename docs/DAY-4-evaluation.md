@@ -6,7 +6,7 @@ All numbers below come from one reproducible evaluation run over the 12-case set
 
 ## 1. Test-set results and baseline comparison
 
-| Metric | A — Manual | B — Plain ChatGPT | C — SIFT |
+| Metric | A — Manual | B — Plain ChatGPT | C — CV Screening |
 |---|---|---|---|
 | **Time per CV** | **3 min 00 s** | **25 s** | **49 s** (4.6 s unthrottled) |
 | **Cases passing the rubric (of 12)** | — | — | **8/12 (67%)** |
@@ -52,12 +52,12 @@ bottleneck; speed to a decision you can trust is.
 
 Manual screening remains the most sensitive to context — a person notices that three previous employers all failed, and the system cannot. Plain ChatGPT is fast at producing an assessment but has no consistent shape, no verification, and no memory of the criteria between candidates. Its defining failure is that it fills gaps: asked about a candidate whose CV never states a location, it reported the requirement as met.
 
-**SIFT is slower than ChatGPT and this is reported as measured** — 49 s against
+**CV Screening is slower than ChatGPT and this is reported as measured** — 49 s against
 25 s. But the 25 s produced several paragraphs of prose that still had to be
 read and checked line by line against the CV. The honest metric is time to a
 decision you can act on: 3 minutes by hand, under a minute with the system.
 
-SIFT wins on consistency, evidence and documentation, and loses to a careful
+CV Screening wins on consistency, evidence and documentation, and loses to a careful
 human on nuance. That trade is stated deliberately rather than hidden.
 
 ---

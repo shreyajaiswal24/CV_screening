@@ -10,10 +10,10 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
-from sift.config import ROOT
-from sift.schemas import RunResult
+from screening.config import ROOT
+from screening.schemas import RunResult
 
-DB_PATH = ROOT / "data" / "sift.db"
+DB_PATH = ROOT / "data" / "screening.db"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS runs (

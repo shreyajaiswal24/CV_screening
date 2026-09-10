@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Setup for SIFT. Safe to run more than once.
+# Setup for CV Screening. Safe to run more than once.
 set -uo pipefail
 cd "$(dirname "$0")"
 
@@ -62,7 +62,7 @@ else
   NEEDS_KEY=0
 fi
 
-$PY -c "from sift import db; db.init()" >/dev/null 2>&1 && say "Database ready" \
+$PY -c "from screening import db; db.init()" >/dev/null 2>&1 && say "Database ready" \
   || say "Database will be created on first run"
 
 # --- 5. What to do next ------------------------------------------------------

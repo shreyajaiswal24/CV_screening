@@ -53,7 +53,7 @@ meaningless 100%.
 |---|---|---|
 | **A — Manual** | The human screening the same 12 CVs, timed | Proves the problem is expensive |
 | **B — Plain ChatGPT** | One good prompt, one CV at a time (`eval/baseline_prompt.txt`) | **The honest competitor.** Without it, "why not just a prompt?" has no answer |
-| **C — SIFT** | The system | The thing being proved |
+| **C — CV Screening** | The system | The thing being proved |
 
 Arm B is deliberately a *good* prompt: it asks for evidence and for gaps to be
 flagged. The claim is not that a chat model writes worse assessments — it is

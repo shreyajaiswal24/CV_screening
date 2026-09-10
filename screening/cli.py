@@ -1,13 +1,13 @@
-"""Command line entry point:  python -m sift.cli <file> [--criteria criteria.yaml]"""
+"""Command line entry point:  python -m screening.cli <file> [--criteria criteria.yaml]"""
 from __future__ import annotations
 
 import argparse
 import json
 import sys
 
-from sift.graph import process_one
-from sift.observability import flush
-from sift.schemas import Status
+from screening.graph import process_one
+from screening.observability import flush
+from screening.schemas import Status
 
 ICON = {Status.MET.value: "[MET]", Status.NOT_MET.value: "[NOT MET]",
         Status.NOT_STATED.value: "[NOT STATED]"}
@@ -48,7 +48,7 @@ def render(r) -> str:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(prog="sift", description="Screen a CV against your criteria.")
+    p = argparse.ArgumentParser(prog="cv-screening", description="Screen a CV against your criteria.")
     p.add_argument("files", nargs="+", help="CV file(s): PDF, DOCX or TXT")
     p.add_argument("--criteria", default=None, help="path to criteria.yaml")
     p.add_argument("--json", action="store_true", help="print raw JSON instead")

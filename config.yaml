@@ -25,7 +25,7 @@ fuzzy_match_threshold: 0.95
 # data/sent_emails.log but nothing leaves the machine. Turn it on deliberately.
 email:
   send_email: true
-  company_name: "SIFT Demo"
+  company_name: "CV Screening Demo"
   sender_name: "Shreya (hiring)"
   reply_to: ""
   call_duration: "30-minute"

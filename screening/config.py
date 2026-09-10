@@ -76,7 +76,7 @@ def load_criteria(path: Path | str = ROOT / "criteria.yaml") -> dict[str, Any]:
     # If the file carries structured filters, they are the source of truth and
     # the criteria list is regenerated from them.
     if data and data.get("filters"):
-        from sift.filters import compile_criteria
+        from screening.filters import compile_criteria
         data["criteria"] = compile_criteria(
             data.get("role", ""), data["filters"], data.get("summary", ""))
 
@@ -104,7 +104,7 @@ def output_dir() -> Path:
     """Where exports go, so the user can actually find them.
 
     Found in use twice: the app runs inside WSL, so it wrote results to a path
-    like /home/hp/sift/data/ that is invisible from Windows Explorer. The user
+    like /home/hp/screening/data/ that is invisible from Windows Explorer. The user
     clicked Export, got a success message, and could not find the file. On WSL
     the output now goes to the Windows Documents folder instead.
     """

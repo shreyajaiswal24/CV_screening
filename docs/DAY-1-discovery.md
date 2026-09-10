@@ -1,6 +1,6 @@
 # Day 1 — Discover, Map, and Baseline
 
-**Project:** SIFT — Submission Intake & Fit Triage
+**Project:** CV Screening
 **Domain:** Recruiting
 
 ---
@@ -57,7 +57,7 @@ Candidate 40 is not receiving the same evaluation as candidate 1. This inconsist
 
 Three arms were measured on the same 12 CVs, so the system is compared against the honest alternative, not only against manual work.
 
-| | A — Manual | B — Plain ChatGPT | C — SIFT |
+| | A — Manual | B — Plain ChatGPT | C — CV Screening |
 |---|---|---|---|
 | **Time per CV** | **3 min 00 s** | **25 s** | **49 s** (4.6 s unthrottled) |
 | Output you can scan at a glance | yes | **no — a wall of prose** | yes |
@@ -66,7 +66,7 @@ Three arms were measured on the same 12 CVs, so the system is compared against t
 | Consistent shape across candidates | no | no | yes |
 | Decision + reason recorded | no | no | yes |
 
-**SIFT is slower than ChatGPT, and that is reported as measured.** The 49 s
+**CV Screening is slower than ChatGPT, and that is reported as measured.** The 49 s
 includes rate-limiting on a free tier; the same screening runs in 4.6 s
 unthrottled. But raw generation time is the wrong measure. ChatGPT produced its
 answer in 25 s and then handed back several paragraphs of prose that still had

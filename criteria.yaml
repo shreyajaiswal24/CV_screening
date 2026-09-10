@@ -1,4 +1,4 @@
-# Written by the SIFT criteria editor. 'filters' is the source of
+# Written by the CV Screening criteria editor. 'filters' is the source of
 # truth; 'criteria' below is generated from it.
 role: AI Engineer (Junior)
 summary: Build LLM-powered features - RAG pipelines, agents, APIs.

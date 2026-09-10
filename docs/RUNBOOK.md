@@ -1,6 +1,6 @@
 # Operator Runbook
 
-For whoever maintains SIFT. The user-facing guide is `README.md`.
+For whoever maintains CV Screening. The user-facing guide is `README.md`.
 
 ---
 
@@ -22,7 +22,7 @@ Stage 5 can send the run back to stage 4 once with corrective feedback. That
 cycle is why this is a LangGraph state machine rather than a sequence of calls.
 
 **The rule that matters:** a model never verifies its own honesty about a
-verifiable fact. Quote checking is a text search in `sift/verify.py`.
+verifiable fact. Quote checking is a text search in `screening/verify.py`.
 
 ---
 
@@ -31,9 +31,9 @@ verifiable fact. Quote checking is a text search in `sift/verify.py`.
 | Task | Command |
 |---|---|
 | Web interface | `./run.sh` then <http://localhost:8000> |
-| One CV | `python -m sift.cli path/to/cv.pdf` |
-| Several | `python -m sift.cli data/cvs/*.pdf` |
-| Raw JSON | `python -m sift.cli cv.pdf --json` |
+| One CV | `python -m screening.cli path/to/cv.pdf` |
+| Several | `python -m screening.cli data/cvs/*.pdf` |
+| Raw JSON | `python -m screening.cli cv.pdf --json` |
 | Evaluation | `python eval/run_eval.py --tag <name>` |
 | Compare two runs | `python eval/run_eval.py --compare before after` |
 | Anonymise real CVs | `python eval/anonymise.py data/real_cvs/*` |
@@ -46,7 +46,7 @@ verifiable fact. Quote checking is a text search in `sift/verify.py`.
 |---|---|---|
 | `.env` | API keys | **no** |
 | `credentials/` | Google service-account JSON | **no** |
-| `data/` | Real CVs, `sift.db`, exports | **no** |
+| `data/` | Real CVs, `CV Screening.db`, exports | **no** |
 | `config.yaml` | Model, thresholds, folder/sheet IDs | yes |
 | `criteria.yaml` | The role being screened for | yes |
 | `samples/`, `eval/cases/` | Anonymised examples and test set | yes |
@@ -129,7 +129,7 @@ before switching for real — a cheaper model is only cheaper if quality holds.
 
 ## Cost and usage monitoring
 
-The SQLite database at `data/sift.db` holds everything. Useful queries are in
+The SQLite database at `data/screening.db` holds everything. Useful queries are in
 `docs/metrics.sql` — daily volume, the proportion of outputs approved without
 edits, every case where a human disagreed with the system, and spend per day.
 

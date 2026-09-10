@@ -1,4 +1,4 @@
-# SIFT — Submission Intake & Fit Triage
+# CV Screening
 
 Screens CVs against your criteria and shows you **the evidence for every
 judgment**, quoted from the CV itself.
@@ -16,7 +16,7 @@ You approve, edit, or override everything before it counts.
 **1. Install**
 
 ```
-git clone <this repo> && cd sift
+git clone <this repo> && cd cv-screening
 ./setup.sh
 ```
 

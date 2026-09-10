@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sift.ingest import extract_text  # noqa: E402
+from screening.ingest import extract_text  # noqa: E402
 
 FIRST = ["Priya", "Arjun", "Meera", "Rohan", "Anaya", "Kabir", "Diya", "Vivaan"]
 LAST = ["Sharma", "Nair", "Kapoor", "Iyer", "Malhotra", "Bose", "Rao", "Chawla"]

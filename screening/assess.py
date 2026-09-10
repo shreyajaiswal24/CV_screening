@@ -1,9 +1,9 @@
 """Stage 4 - ASSESS (model). One judgment per criterion, each with a quote."""
 from __future__ import annotations
 
-from sift.llm import Usage, call_json
-from sift.prompts import ASSESS_SYSTEM, assess_user
-from sift.schemas import Assessment, EvidenceStrength, Profile, Status
+from screening.llm import Usage, call_json
+from screening.prompts import ASSESS_SYSTEM, assess_user
+from screening.schemas import Assessment, EvidenceStrength, Profile, Status
 
 _VALID = {s.value for s in Status}
 

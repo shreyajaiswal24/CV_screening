@@ -14,4 +14,4 @@ echo "  CV Screening is running."
 echo "  Open  http://localhost:8000  in your browser."
 echo "  Press Ctrl+C here to stop it."
 echo ""
-exec python3 -m uvicorn sift.api:app --host 127.0.0.1 --port 8000
+exec python3 -m uvicorn screening.api:app --host 127.0.0.1 --port 8000

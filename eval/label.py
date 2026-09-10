@@ -22,8 +22,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from sift.config import load_criteria          # noqa: E402
-from sift.graph import process_one             # noqa: E402
+from screening.config import load_criteria          # noqa: E402
+from screening.graph import process_one             # noqa: E402
 
 GT = ROOT / "eval" / "ground_truth.json"
 CASES = ROOT / "eval" / "cases"

@@ -1,6 +1,6 @@
 # Why this project
 
-The reasoning behind SIFT, written as answers to the questions that get asked.
+The reasoning behind CV Screening, written as answers to the questions that get asked.
 
 ---
 

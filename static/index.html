@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CV Screening — SIFT</title>
+<title>CV Screening</title>
 <style>
   :root{
     --bg:#f6f7f9; --card:#fff; --ink:#12151a; --muted:#5f6875; --line:#e3e6ea;
@@ -321,7 +321,7 @@ async function screenFiles(files){
       r = await (await fetch('/api/screen', {method:'POST', body:fd})).json();
     } catch(e) {
       r = {error_code:'NO_CONNECTION',
-           error_message:'Lost connection to SIFT. Is it still running?',
+           error_message:'Lost connection to CV Screening. Is it still running?',
            source_file:file.name, assessments:[], verdict:'BLOCKED', meta:{}};
     }
     r._i = i;

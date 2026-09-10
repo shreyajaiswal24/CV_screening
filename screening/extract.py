@@ -7,10 +7,10 @@ toward a verdict it has already chosen.
 """
 from __future__ import annotations
 
-from sift.dates import total_years
-from sift.llm import Usage, call_json
-from sift.prompts import EXTRACT_SYSTEM, extract_user
-from sift.schemas import DateRange, Profile
+from screening.dates import total_years
+from screening.llm import Usage, call_json
+from screening.prompts import EXTRACT_SYSTEM, extract_user
+from screening.schemas import DateRange, Profile
 
 
 def _validate(payload: dict) -> None:

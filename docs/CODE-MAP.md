@@ -13,14 +13,14 @@ CV_Screening_Code/
 ├── criteria.yaml          WHAT YOU SCREEN FOR — the user edits this
 ├── .env.example           every secret key, all values blank
 │
-├── sift/                  ← the system
+├── screening/                  ← the system
 ├── static/index.html      ← the entire interface, one file, no build step
 ├── eval/                  ← the evaluation package
 ├── docs/                  ← architecture, failures, limitations, case study
 └── samples/               anonymised example CVs
 ```
 
-## `sift/` — the pipeline, one file per stage
+## `screening/` — the pipeline, one file per stage
 
 | Stage | File | Owner | What it does |
 |---|---|---|---|
@@ -34,7 +34,7 @@ CV_Screening_Code/
 | 8 | *(the UI)* | **human** | approve / edit / override |
 | 9 | `db.py` | code | run log, judgments, exceptions, human overrides |
 
-## `sift/` — supporting modules
+## `screening/` — supporting modules
 
 | File | Purpose |
 |---|---|
@@ -48,7 +48,7 @@ CV_Screening_Code/
 | `config.py` | Secrets, settings, criteria loading. Resolves a Windows-visible export folder under WSL |
 | `db.py` | SQLite. The `assessments` table is also the evaluation dataset |
 | `api.py` | FastAPI endpoints |
-| `cli.py` | `python -m sift.cli <file>` |
+| `cli.py` | `python -m screening.cli <file>` |
 | `observability.py` | Optional Langfuse tracing; no-op without keys |
 | `integrations/gsheets.py` | Writes the shortlist to a Google Sheet, or CSV as a fallback |
 | `integrations/gdrive.py` | Reads CVs from a Drive folder — **built, then cut from v1.** Kept as the head start on the two-week plan |

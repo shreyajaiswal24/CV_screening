@@ -123,9 +123,9 @@ That third measurement is the learning loop. Every override she makes becomes a 
 
 | Tool | Role |
 |---|---|
-| Claude Code | Scaffolding, boilerplate, first drafts of prompts and interface markup |
-| Claude Opus 5 (production) | Extraction and assessment inside the system |
-| A second model call | Rubric grading at scale, validated against hand-written labels |
+| **An AI coding assistant** | Scaffolding, boilerplate, first drafts of prompts and interface markup. Used during development only — it is not part of the running system |
+| **`openai/gpt-oss-120b` via Groq** | The production model. Extraction and assessment inside the system, and nothing else |
+| *(no model was used for grading)* | Evaluation is a deterministic comparison against hand-verified answers. An LLM judge was considered and rejected — scoring a model's output with a model would reintroduce the unverified judgment this system exists to remove |
 
 ### Delegated to AI
 

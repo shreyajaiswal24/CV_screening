@@ -127,13 +127,14 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
         blocked = ("No email address was found in this CV. The system will not guess "
                    "one - add it by hand if you have it.")
 
-    # A public URL with no login means anyone who finds it could send mail from
-    # the operator's account. So on a hosted instance, real sending requires the
-    # app to be password-protected. Unprotected hosted instances stay dry-run.
-    hosted = bool(os.environ.get("RENDER") or os.environ.get("DEMO_MODE")
-                  or os.environ.get("SPACE_ID") or os.environ.get("RAILWAY_ENVIRONMENT"))
-    protected = bool(Secrets().app_password)
-    force_dry = hosted and not protected
+    # There is no login, so a deployed URL is reachable by anyone who finds it
+    # and every use can send mail from the operator's own account. Two things
+    # bound that: sending on a hosted instance must be turned on deliberately
+    # with ALLOW_EMAIL=1 (a forgotten variable fails safe), and the number of
+    # messages an instance will send in an hour is capped - see _send_budget().
+    hosted = bool(os.environ.get("RENDER") or os.environ.get("SPACE_ID")
+                  or os.environ.get("RAILWAY_ENVIRONMENT"))
+    force_dry = hosted and not os.environ.get("ALLOW_EMAIL")
 
     return EmailDraft(
         to=address if address_ok else None,
@@ -147,10 +148,34 @@ def build_draft(result: RunResult, criteria: list[dict], rules: dict) -> EmailDr
     )
 
 
+MAX_SENDS_PER_HOUR = int(os.environ.get("MAX_SENDS_PER_HOUR", "10"))
+_recent_sends: list[float] = []
+
+
+def _send_budget() -> None:
+    """Cap how many messages one instance will send in an hour.
+
+    With no login on the app, this is what bounds the damage if the URL is
+    found and used by someone else. Ten an hour is well above normal use for a
+    single reviewer and well below anything that would look like spam.
+    """
+    import time
+    now = time.time()
+    _recent_sends[:] = [t for t in _recent_sends if now - t < 3600]
+    if len(_recent_sends) >= MAX_SENDS_PER_HOUR:
+        raise ValueError(
+            f"This instance has already sent {MAX_SENDS_PER_HOUR} invitations in "
+            f"the last hour, which is its limit. Wait a while, or raise "
+            f"MAX_SENDS_PER_HOUR if you genuinely need to send more.")
+    _recent_sends.append(now)
+
+
 def send(draft: EmailDraft, run_id: str) -> EmailDraft:
     """Actually send. Only ever called from an explicit human action."""
     if not draft.can_send:
         raise ValueError(draft.blocked_reason or "This draft is not allowed to be sent.")
+    if not draft.dry_run:
+        _send_budget()
 
     cfg = SETTINGS.get("email", {}) or {}
     log = ROOT / "data" / "sent_emails.log"

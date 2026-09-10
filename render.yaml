@@ -1,11 +1,13 @@
-# Render deployment. Create a Web Service from this repo and Render reads this.
+# Render deployment. New + -> Blueprint, point it at this repo.
 #
-# This instance CAN send real interview invitations from the operator's Gmail,
-# which is why APP_PASSWORD is required. Without it the app would be open to
-# anyone who found the URL, and they could send mail from that account.
+# There is no login: anyone with the URL can use the app. That is deliberate,
+# so an evaluator can try it without credentials. Two things bound the risk of
+# an open instance that sends mail from the owner's account:
+#   - sending must be turned on explicitly with ALLOW_EMAIL=1
+#   - MAX_SENDS_PER_HOUR caps how many invitations one instance will send
 #
-# The free tier sleeps after ~15 minutes idle, so the first request after a
-# quiet period takes ~30 seconds to wake.
+# The free tier sleeps after ~15 minutes idle; the first request then takes
+# about 30 seconds to wake.
 services:
   - type: web
     name: cv-screening
@@ -14,18 +16,19 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn screening.api:app --host 0.0.0.0 --port $PORT
     envVars:
-      # --- all of these are set in the Render dashboard, never committed ---
       - key: GROQ_API_KEY
-        sync: false
-      - key: APP_PASSWORD          # REQUIRED - without it, email stays dry-run
-        sync: false
+        sync: false          # set in the Render dashboard, never committed
+      - key: ALLOW_EMAIL
+        value: "1"           # remove this and the app drafts but never sends
+      - key: MAX_SENDS_PER_HOUR
+        value: "10"
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
         value: "587"
-      - key: SMTP_USER             # your gmail address
+      - key: SMTP_USER
         sync: false
-      - key: SMTP_PASSWORD         # gmail App Password, 16 chars, no spaces
+      - key: SMTP_PASSWORD
         sync: false
       - key: PYTHON_VERSION
         value: "3.11"

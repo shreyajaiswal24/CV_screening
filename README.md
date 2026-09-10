@@ -140,35 +140,39 @@ well as "has built and shipped an ETL pipeline in Python".
 
 ## Running it online (optional)
 
-The app can be deployed so it is reachable from anywhere.
-
-**Render** (free): New → Web Service → connect this repo. It reads `render.yaml`
-automatically. Then set these in the dashboard under Environment:
+**Render** (free): New + → Blueprint → point it at this repo. It reads
+`render.yaml`. Then set these in the dashboard under Environment:
 
 | Variable | Value |
 |---|---|
 | `GROQ_API_KEY` | your Groq key |
-| `APP_PASSWORD` | **required** — a password only you know |
 | `SMTP_USER` | your Gmail address |
 | `SMTP_PASSWORD` | your Gmail **App Password** (16 characters, no spaces) |
 
-You get a URL like `cv-screening.onrender.com`, which asks for the password
-before it shows anything.
+You get a URL like `cv-screening.onrender.com`. **There is no login** — anyone
+with the link can open it and screen a CV. That is intentional, so someone can
+try the system without being given credentials.
 
-### Why the password is required
+### What that means, and what bounds it
 
-The deployed app sends interview invitations **from your own Gmail account**.
-Without a password, anyone who found the URL could upload a CV with any address
-in it and send mail as you — which is a spam vector on your personal account.
+An open instance can send interview invitations **from the account in
+`SMTP_USER`**. Two limits apply:
 
-So the rule is enforced in code: **a hosted instance without `APP_PASSWORD` stays
-in dry-run and will not send anything.** Set the password, and real sending works
-exactly as it does locally — GREAT FIT only, address taken from the CV, and two
-explicit clicks.
+- **Sending is off unless `ALLOW_EMAIL=1` is set.** A forgotten variable means
+  the app drafts invitations and logs them, but sends nothing.
+- **`MAX_SENDS_PER_HOUR` caps sending** (default 10). Well above normal use for
+  one reviewer, well below anything that looks like spam.
+
+The existing gates still apply on every message: GREAT FIT only, the address
+must come from the CV itself, two explicit clicks, and one invitation per
+candidate.
+
+If you would rather the public version never send mail at all, remove
+`ALLOW_EMAIL` from the environment. Everything else works unchanged.
 
 ### Two other things to know
 
 - **The free tier sleeps after ~15 minutes idle.** The first request after a
   quiet period takes about 30 seconds to wake up.
 - **The run log resets when the instance restarts**, because the free tier has
-  no persistent disk. For real day-to-day use, run it locally or add a paid disk.
+  no persistent disk. For day-to-day use, run it locally.

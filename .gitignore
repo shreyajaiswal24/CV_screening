@@ -8,3 +8,4 @@ __pycache__/
 venv/
 eval/results_*.json
 criteria.backup.yaml
+eval/ground_truth.*.bak

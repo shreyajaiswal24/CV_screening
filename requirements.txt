@@ -21,3 +21,4 @@ gspread>=6.1.0                      # Google Sheets (write results)
 
 # --- observability (optional; system runs without it) ---
 langfuse>=2.53.0
+openpyxl>=3.1.0            # Excel export

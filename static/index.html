@@ -655,6 +655,27 @@ $('#btnExport').onclick = async ()=>{
   const ids = RESULTS.filter(r=>!r.error_code).map(r=>r.run_id);
   const res = await fetch('/api/export', {method:'POST',
     headers:{'Content-Type':'application/json'}, body: JSON.stringify({run_ids: ids})});
+
+  // A CSV comes back as a file. Hand it to the browser so it lands in the
+  // user's Downloads folder, wherever the app happens to be running.
+  const ct = res.headers.get('content-type') || '';
+  if (res.ok && (ct.includes('spreadsheet') || ct.includes('csv'))){
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (res.headers.get('content-disposition')||'')
+                   .match(/filename="([^"]+)"/)?.[1] || 'shortlist.xlsx';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    const n = res.headers.get('X-Rows-Exported') || ids.length;
+    const local = res.headers.get('X-Local-Copy');
+    $('#banner').innerHTML = `<div class="banner warn" style="background:var(--metbg);
+      border-color:#bfe5d1;color:var(--met)">Downloaded ${n} candidate(s) as an Excel file — check your
+      Downloads folder.${local ? ` A copy was also saved to <code>${esc(local)}</code>.` : ''}</div>`;
+    return;
+  }
+
   const j = await res.json();
   if (!res.ok) return alert(j.detail || j.error_message || 'Export failed.');
   $('#banner').innerHTML = `<div class="banner warn" style="background:var(--metbg);

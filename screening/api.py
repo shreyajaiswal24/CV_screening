@@ -9,7 +9,7 @@ from pathlib import Path
 
 import yaml
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -249,11 +249,38 @@ def export(payload: ExportPayload):
     if not rows:
         raise HTTPException(400, "Nothing to export.")
     if not sheet:
-        out = output_dir() / "shortlist.csv"
-        from screening.integrations.gsheets import write_csv
-        _, written, skipped = write_csv(rows, out)
-        return {"ok": True, "destination": "csv", "path": windows_path(out),
-                "rows": written, "skipped": skipped}
+        # Found once it was deployed: the CSV was written to a path inside the
+        # server's container, so the user could not reach it - and on a free
+        # tier with no persistent disk it disappeared on the next restart. The
+        # same class of bug as writing to a WSL path Windows cannot see. Export
+        # now returns the file to the browser as a download.
+        import io as _io
+        from screening.integrations.gsheets import build_xlsx
+
+        # A real .xlsx always opens in Excel; a .csv opens in whatever the
+        # machine has associated with it, often Notepad.
+        data = build_xlsx(rows)
+
+        # Keep a local copy too when running on the user's own machine.
+        local_path = None
+        try:
+            out = output_dir() / "shortlist.csv"
+            from screening.integrations.gsheets import write_csv
+            _, written, _skipped = write_csv(rows, out)
+            local_path = windows_path(out)
+        except Exception:
+            pass
+
+        stamp = db.now()[:10]
+        return StreamingResponse(
+            _io.BytesIO(data),
+            media_type=("application/vnd.openxmlformats-officedocument"
+                        ".spreadsheetml.sheet"),
+            headers={
+                "Content-Disposition": f'attachment; filename="shortlist-{stamp}.xlsx"',
+                "X-Rows-Exported": str(len(rows)),
+                "X-Local-Copy": local_path or "",
+            })
     from screening.integrations.gsheets import append_rows
     written, skipped = append_rows(sheet, rows)
     return {"ok": True, "destination": "google_sheet",

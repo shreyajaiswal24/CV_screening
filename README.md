@@ -1,5 +1,7 @@
 # CV Screening
 
+**🔗 Live demo:** <https://cv-screening-2.onrender.com/> — no install needed. Drop a CV, write your criteria, read the evidence. *(Free hosting: the first load can take ~30 s while the server wakes up.)*
+
 Screens CVs against your criteria and **shows you the line from the CV that
 proves every judgment** — checked by code, not by another AI.
 
